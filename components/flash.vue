@@ -1,14 +1,21 @@
 <template>
-    <div class="flash-container"  :class="direction">
-        {{ text }}
+    <div class="flash-container"  :class="direction" @click="begone">
+        <h1> {{ text }}</h1>
+        <p>click to skip</p>
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
+const direction = ref('right')
 const props = defineProps({
     text: String,
-    direction: String
 })
+
+function begone(){
+    direction.value = 'done';
+}
 </script>
 
 <style lang="css" scoped>
@@ -21,10 +28,19 @@ const props = defineProps({
     background-color: #000;
     color: #fff;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 48px;
     overflow: hidden;
+}
+
+h1{
+    font-size: 48px;
+}
+
+p{
+    font-size: 20px;
+    margin-top: 10px;
 }
 
 .right{
@@ -35,6 +51,11 @@ const props = defineProps({
 .left{
     animation: left-slide 2s forwards;
 
+}
+
+.done{
+    width: 0;
+    right: 0;
 }
 
 @keyframes right-slide {

@@ -3,7 +3,8 @@
         
         <!-- learn about code-switching -->
         <info/>
-        <!-- <flash text="Let's add some sentences, shall we?" direction="right"/> -->
+
+        <flash text="Let's write some sentences, shall we?"/>
 
         <!-- back to index page -->
         <back link=""/>
@@ -13,7 +14,7 @@
         <p>Please type in an example of code-switching, as you understand it.</p>
         <form action="">
             <div class="edit-label">Enter sentence</div>
-            <input type="text"  placeholder="Enter sentence">
+            <input type="text"  placeholder="Enter sentence" required minlength="6">
             <button>Submit</button>
         </form>
     </div>
@@ -82,6 +83,11 @@ input{
     margin-bottom: 80px;
 }
 
+form:focus-within .edit-label{
+    background-color: #000;
+    color: #fff;
+}
+ 
 .edit-label{
     position: absolute;
     top: -14px;
@@ -89,7 +95,7 @@ input{
     font-size: 16px;
     background-color: #fff;
     padding: 0px 10px;
-    transition: 0s;
+    transition: 0.2s;
     pointer-events: none;
 }
 
