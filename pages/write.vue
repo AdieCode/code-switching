@@ -6,7 +6,7 @@
         <!-- <flash text="Let's add some sentences, shall we?" direction="right"/> -->
 
         <!-- back to index page -->
-        <back link="/"/>
+        <back link=""/>
 
         <!-- add sentences -->
         <h2>Add a sentence</h2>
