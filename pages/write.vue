@@ -3,7 +3,7 @@
         
         <!-- learn about code-switching -->
         <info/>
-        <flash text="Let's add some sentences, shall we?" direction="right"/>
+        <!-- <flash text="Let's add some sentences, shall we?" direction="right"/> -->
 
         <!-- back to index page -->
         <back link="/"/>
@@ -25,8 +25,24 @@ import { ref } from 'vue';
 
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+</style>
+
+<style lang="css" scoped>
+
 
 .write-container{
     width: 100%;
