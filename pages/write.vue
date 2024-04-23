@@ -5,6 +5,7 @@
         <info/>
 
         <flash text="Let's write some sentences, shall we?"/>
+        <added v-if="add"/>
 
         <!-- back to index page -->
         <back link=""/>
@@ -12,9 +13,9 @@
         <!-- add sentences -->
         <h2>Add a sentence</h2>
         <p>Please type in an example of code-switching, as you understand it.</p>
-        <form action="">
+        <form action="" @submit.prevent="addSentence">
             <div class="edit-label">Enter sentence</div>
-            <input type="text"  placeholder="Enter sentence" required minlength="6">
+            <input type="text"  placeholder="Enter sentence" v-model="sentence" required minlength="6">
             <button>Submit</button>
         </form>
     </div>
@@ -23,7 +24,23 @@
 <script setup>
 import { ref } from 'vue';
 
+const add = ref(false);
+const sentence = ref('')
+let number = 0;
 
+function addSentence(){
+    add.value = true;
+
+    setTimeout(function() {
+        sentence.value = '';
+    }, 600); 
+
+    setTimeout(function() {
+        add.value = false;
+    }, 1300); 
+    number = number + 1
+    console.log(number)
+}
 </script>
 
 <style lang="css">
