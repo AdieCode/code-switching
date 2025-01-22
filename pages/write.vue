@@ -23,13 +23,16 @@
 
 <script setup>
 import { ref } from 'vue';
-
+import axios from 'axios';
+import { useSentenceManager } from '../store/sentenceManager';
+const sentenceManager = useSentenceManager();
 const add = ref(false);
-const sentence = ref('')
-let number = 0;
+const sentence = ref('');
 
-function addSentence(){
+async function addSentence (){
     add.value = true;
+    await sentenceManager.addSentence(sentence.value);
+
 
     setTimeout(function() {
         sentence.value = '';
@@ -38,8 +41,6 @@ function addSentence(){
     setTimeout(function() {
         add.value = false;
     }, 1300); 
-    number = number + 1
-    console.log(number)
 }
 </script>
 
