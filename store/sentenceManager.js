@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 
 // Get base URL from environment variable or fall back to a default value
-const baseURL = import.meta.env.VUE_APP_API_URL || 'http://localhost:3001';
+const baseURL = import.meta.env.API_URL || 'http://localhost:3001';
 console.log('baseURL:', baseURL);
 
 export const useSentenceManager = defineStore('auth', {
