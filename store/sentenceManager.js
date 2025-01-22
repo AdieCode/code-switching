@@ -2,10 +2,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-// Get base URL from environment variable or fall back to a default value
-const baseURL = import.meta.env.API_URL || 'http://localhost:3001';
-console.log('baseURL:', baseURL);
-
 export const useSentenceManager = defineStore('auth', {
   state: () => ({
     sentence: {
@@ -16,6 +12,10 @@ export const useSentenceManager = defineStore('auth', {
   actions: {
     async addSentence(sentence) {
       try {
+        // Get the runtime config dynamically within the action
+        const config = useRuntimeConfig();
+        const baseURL = config.public.baseUrl || 'http://localhost:3001';
+
         const response = await axios.post(`${baseURL}/sentences/add`, {
           sentence: sentence,
         });
@@ -28,10 +28,14 @@ export const useSentenceManager = defineStore('auth', {
     },
     async getRandomSentence() {
       try {
+        const config = useRuntimeConfig();
+        const baseURL = config.public.baseUrl || 'http://localhost:3001';
+        console.log('baseURL:', config.public.baseUrl);
+
         const response = await axios.get(`${baseURL}/sentences/random`);
 
         if (response.status === 200) {
-          return response;
+          return response.data;
         }
         console.log('Something went wrong');
         return null;
@@ -42,6 +46,9 @@ export const useSentenceManager = defineStore('auth', {
     },
     async rateSentence(sentenceId, vote) {
       try {
+        const config = useRuntimeConfig();
+        const baseURL = config.public.baseUrl || 'http://localhost:3001';
+
         const response = await axios.post(`${baseURL}/vote`, {
           sentence_id: sentenceId,
           vote: vote,

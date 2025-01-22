@@ -2,5 +2,10 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@pinia/nuxt"],
-  compatibilityDate: "2025-01-21"
+  compatibilityDate: "2025-01-21",
+  runtimeConfig: {
+    public: {
+      baseUrl: process.env.API_URL,
+    }
+  },
 })
