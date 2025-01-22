@@ -81,7 +81,7 @@ const getSentence = async () => {
     sentence.value = '';
     try {
         await updateLocalStorage(); 
-        sentence.value = JSON.parse(localStorage.getItem('sentence')).data; 
+        sentence.value = JSON.parse(localStorage.getItem('sentence')); 
     } catch (error) {
         console.error('Error retrieving sentence:', error);
         throw error; 

@@ -35,6 +35,7 @@ export const useSentenceManager = defineStore('auth', {
         const response = await axios.get(`${baseURL}/sentences/random`);
 
         if (response.status === 200) {
+            console.log('response.data:', response.data);
           return response.data;
         }
         console.log('Something went wrong');
