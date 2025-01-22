@@ -41,7 +41,7 @@ import { useSentenceManager } from '../store/sentenceManager';
 const sentenceManager = useSentenceManager();
 
 
-const add = ref(false);
+const add = ref(false); 
 const sentence = ref('')
 let number = 0;
 
@@ -52,7 +52,7 @@ const addVoteRequest = async(vote) =>{
         vote: vote
     };
     try {
-        const response = await axios.post('http://localhost:3001/vote/', data);
+        const response = sentenceManager.rateSentence(data.sentence_id, data.vote);
         return response
     } catch (error) {
         console.error('Error:', error);
