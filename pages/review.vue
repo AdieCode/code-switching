@@ -17,7 +17,17 @@
             <p>Would you classify the following sentence as <br> a valid ”Code Switching” sentence</p>
 
             <h3 v-if="sentence">"{{ sentence.sentence }}"</h3>
-            <h3 v-else="sentence">waiting for sentence</h3>
+            <div v-else class="waiting">
+                <div
+                    v-for="(letter, index) in waiting.split('')"  
+                    :key="index"
+                    class="animate-letter"
+                    :style="{ animationDelay: index * 0.04 + 's' }"
+                >
+                    <h4>{{ letter }}</h4>
+                    
+                </div>
+            </div>
 
             <div class="options">
                 <div class="option" @click="vote('yes')">
@@ -39,6 +49,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useSentenceManager } from '../store/sentenceManager';
 const sentenceManager = useSentenceManager();
+const waiting = 'waiting_for_sentence';
 
 
 const add = ref(false); 
@@ -199,7 +210,24 @@ onMounted(() => {
     font-weight: 300;
 }
 
+.waiting{
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
 
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-letter {
+  display: inline-block;
+  animation: bounce 0.6s infinite;
+}
 
 
 </style>
