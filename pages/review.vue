@@ -9,8 +9,8 @@
         <!-- back to index page -->
         <back link=""/>
 
-        <!-- content -->
-        <div class="review-container">
+        <!-- review content -->
+        <div v-if="!feedback" class="review-container">
 
             <!-- add sentences -->
             <h2>Review a sentence</h2>
@@ -30,13 +30,39 @@
             </div>
 
             <div class="options">
-                <div class="option" @click="vote('yes')">
+                <div class="option " @click="vote('yes')">
                     <h2>Yes</h2>
-                    <div class="animated-background1"></div>
+                    <div class="animated-background1 green"></div>
                 </div>
                 <div class="option" @click="vote('no')">
                     <h2>No</h2>
-                    <div class="animated-background2"></div>
+                    <div class="animated-background2 red"></div>
+                </div>
+            </div>
+            <div class="options">
+                <div class="option" @click="vote('yes')">
+                    <h2>Done</h2>
+                    <div class="animated-background1"></div>
+                </div>
+            </div>
+        </div>
+        <!-- provide feedback -->
+        <div v-if="feedback" class="review-container">
+
+            <!-- add sentences -->
+            <h2>feedback</h2>
+            <p>Please provide some feedback on the <br>previous sentence.</p>
+
+            <div class="">
+                <div 
+                    v-for="(option, index) in feedbackOptions" 
+                    :key="index" 
+                    class="option-container"
+                >
+                    <div class="feedback-option" @click="vote(option)">
+                    <h2>{{ option }}</h2>
+                    <div class="animated-background1"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,8 +80,14 @@ const waiting = 'waiting_for_sentence';
 
 const add = ref(false); 
 const sentence = ref('')
-let number = 0;
-
+const feedback = ref(false);
+const feedbackOptions = [
+    "Not typically how we speak (unnatural)", 
+    "Doesn't make sense (nonsensical)", 
+    "Sentence structure is not correct", 
+    "No code switching (only one language used)", 
+    "Other"
+];
 const addVoteRequest = async(vote) =>{
     console.log(sentence.value.id)
     const data = {
@@ -99,6 +131,21 @@ const getSentence = async () => {
     }
 }
 
+const addFeedback = async (feedback) => {
+    sentence.value = '';
+    try {
+        await updateLocalStorage(); 
+        sentence.value = JSON.parse(localStorage.getItem('sentence')); 
+    } catch (error) {
+        console.error('Error retrieving sentence:', error);
+        throw error; 
+    }
+}
+
+function toggleFeedback(){
+    feedback.value = !feedback.value;
+}
+
 function vote(awnser){
 
     if (awnser === 'yes'){
@@ -106,7 +153,8 @@ function vote(awnser){
         getSentence();
         console.log(awnser)
     } else {
-        addVoteRequest('no')
+        addVoteRequest('no');
+        toggleFeedback();
         getSentence();
         console.log(awnser) 
     }
@@ -118,6 +166,14 @@ onMounted(() => {
 </script>
 
 <style lang="css" scoped>
+
+.red{
+    background-color: red !important;
+}
+
+.green{
+    background-color: green !important;
+}
 .review-container{
     width: 100%;
     height: 100dvh;
@@ -158,7 +214,7 @@ onMounted(() => {
     justify-content: flex-start;
     align-items: center;
     border: 1px solid #000;
-    padding: 15px;
+    padding: 10px;
     margin: 20px;
     min-width: 150px;
     cursor: pointer;
@@ -169,7 +225,27 @@ onMounted(() => {
 .option h2{
     font-size: 32px;
     font-weight: 300;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    z-index: 1;
+}
+
+.feedback-option{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #000;
+    padding: 15px;
+    margin: 20px;
+    min-width: 150px;
+    cursor: pointer;
+    position: relative;
+}
+
+.feedback-option h2{
+    font-size: 24px;
+    font-weight: 300;
+    margin-top: 10px;
     z-index: 1;
 }
 
@@ -206,6 +282,23 @@ onMounted(() => {
 }
 
 .option:hover p{
+    color: #fff;
+    font-weight: 300;
+}
+
+.feedback-option:hover .animated-background1{
+    width: 100%;
+}
+
+.feedback-option:hover .animated-background2{
+    width: 100%;
+}
+
+.feedback-option:hover h2{
+    color: #fff;
+}
+
+.feedback-option:hover p{
     color: #fff;
     font-weight: 300;
 }
