@@ -59,7 +59,7 @@
                     :key="index" 
                     class="option-container"
                 >
-                    <div class="feedback-option" @click="vote(option)">
+                    <div class="feedback-option" @click="submitFeedback(option)">
                     <h2>{{ option }}</h2>
                     <div class="animated-background1"></div>
                     </div>
@@ -72,13 +72,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
 import { useSentenceManager } from '../store/sentenceManager';
 const sentenceManager = useSentenceManager();
 const waiting = 'waiting_for_sentence';
 
 
-const add = ref(false); 
 const sentence = ref('')
 const feedback = ref(false);
 const feedbackOptions = [
@@ -88,6 +86,7 @@ const feedbackOptions = [
     "No code switching (only one language used)", 
     "Other"
 ];
+
 const addVoteRequest = async(vote) =>{
     console.log(sentence.value.id)
     const data = {
@@ -95,13 +94,14 @@ const addVoteRequest = async(vote) =>{
         vote: vote
     };
     try {
-        const response = sentenceManager.rateSentence(data.sentence_id, data.vote);
+        const response = sentenceManager.rateSentence(data.vote);
         return response
     } catch (error) {
         console.error('Error:', error);
     }
 } 
-const getSentenceRequest = async() =>{
+
+const getSentenceRequest = async() => {
     try {
         const response = await sentenceManager.getRandomSentence();
 
@@ -111,9 +111,10 @@ const getSentenceRequest = async() =>{
     }
 }
 
-const updateLocalStorage = async() =>{
+const updateLocalStorage = async() => {
     try {
         const sentence = await getSentenceRequest(); 
+        console.log('this is sentence gotten --- ', sentence)
         localStorage.setItem('sentence', JSON.stringify(sentence));
     } catch (error) {
         console.error('Error updating localStorage:', error);
@@ -146,19 +147,25 @@ function toggleFeedback(){
     feedback.value = !feedback.value;
 }
 
-function vote(awnser){
+const submitFeedback = async (feedbackOption) => {
+  try {
+    await sentenceManager.feedback(feedbackOption);
+    feedback.value = false;
+    await getSentenceRequest();
+  } catch (error) {
+    console.error('Error submitting feedback:', error);
+  }
+};
 
-    if (awnser === 'yes'){
-        addVoteRequest('yes')
-        getSentence();
-        console.log(awnser)
-    } else {
-        addVoteRequest('no');
-        toggleFeedback();
-        getSentence();
-        console.log(awnser) 
-    }
-}
+const vote = async (option) => {
+  if (option === 'no') {
+    await addVoteRequest(option);
+    feedback.value = true;
+  } else {
+    await addVoteRequest(option);
+    await getSentenceRequest();
+  }
+};
 
 onMounted(() => {
     getSentence();

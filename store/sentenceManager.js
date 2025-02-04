@@ -30,12 +30,12 @@ export const useSentenceManager = defineStore('auth', {
       try {
         const config = useRuntimeConfig();
         const baseURL = config.public.baseUrl || 'http://localhost:3001';
-        console.log('baseURL:', config.public.baseUrl);
 
         const response = await axios.get(`${baseURL}/sentences/random`);
 
         if (response.status === 200) {
-            console.log('response.data:', response.data);
+          this.sentence.text = response.data.sentence;
+          this.sentence.id = response.data.id;
           return response.data;
         }
         console.log('Something went wrong');
@@ -45,14 +45,30 @@ export const useSentenceManager = defineStore('auth', {
         return null;
       }
     },
-    async rateSentence(sentenceId, vote) {
+    async rateSentence(vote) {
       try {
         const config = useRuntimeConfig();
         const baseURL = config.public.baseUrl || 'http://localhost:3001';
 
         const response = await axios.post(`${baseURL}/vote`, {
-          sentence_id: sentenceId,
+          sentence_id: this.sentence.id,
           vote: vote,
+        });
+
+        return response.status === 200;
+      } catch (error) {
+        console.error('Error rating sentence:', error);
+        return false;
+      }
+    },
+    async feedback(feedback) {
+      try {
+        const config = useRuntimeConfig();
+        const baseURL = config.public.baseUrl || 'http://localhost:3001';
+
+        const response = await axios.post(`${baseURL}/sentences/feedback`, {
+          sentence_id: this.sentence.id,
+          feedback: feedback,
         });
 
         return response.status === 200;
