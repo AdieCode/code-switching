@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="options">
-                <div class="option" @click="vote('yes')">
+                <div class="option" @click="done">
                     <h2>Done</h2>
                     <div class="animated-background1"></div>
                 </div>
@@ -73,6 +73,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useSentenceManager } from '../store/sentenceManager';
+
+const router = useRouter();
 const sentenceManager = useSentenceManager();
 const waiting = 'waiting_for_sentence';
 
@@ -124,6 +126,10 @@ const vote = async (option) => {
     await addVoteRequest(option);
     await getSentenceRequest();
   }
+};
+
+const done = () => {
+  router.push('/');
 };
 
 onMounted(() => {
