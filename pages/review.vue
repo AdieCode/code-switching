@@ -16,7 +16,7 @@
             <h2>Review a sentence</h2>
             <p>Would you classify the following sentence as <br> a valid ”Code Switching” sentence</p>
 
-            <h3 v-if="sentence">"{{ sentence.sentence }}"</h3>
+            <h3 v-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
             <div v-else class="waiting">
                 <div
                     v-for="(letter, index) in waiting.split('')"  
@@ -88,13 +88,8 @@ const feedbackOptions = [
 ];
 
 const addVoteRequest = async(vote) =>{
-    console.log(sentence.value.id)
-    const data = {
-        sentence_id: sentence.value.id,
-        vote: vote
-    };
     try {
-        const response = sentenceManager.rateSentence(data.vote);
+        const response = sentenceManager.rateSentence(vote);
         return response
     } catch (error) {
         console.error('Error:', error);
@@ -109,42 +104,6 @@ const getSentenceRequest = async() => {
     } catch (error) {
         console.error('Error:', error);
     }
-}
-
-const updateLocalStorage = async() => {
-    try {
-        const sentence = await getSentenceRequest(); 
-        console.log('this is sentence gotten --- ', sentence)
-        localStorage.setItem('sentence', JSON.stringify(sentence));
-    } catch (error) {
-        console.error('Error updating localStorage:', error);
-    }
-}
-
-const getSentence = async () => {
-    sentence.value = '';
-    try {
-        await updateLocalStorage(); 
-        sentence.value = JSON.parse(localStorage.getItem('sentence')); 
-    } catch (error) {
-        console.error('Error retrieving sentence:', error);
-        throw error; 
-    }
-}
-
-const addFeedback = async (feedback) => {
-    sentence.value = '';
-    try {
-        await updateLocalStorage(); 
-        sentence.value = JSON.parse(localStorage.getItem('sentence')); 
-    } catch (error) {
-        console.error('Error retrieving sentence:', error);
-        throw error; 
-    }
-}
-
-function toggleFeedback(){
-    feedback.value = !feedback.value;
 }
 
 const submitFeedback = async (feedbackOption) => {
@@ -168,7 +127,7 @@ const vote = async (option) => {
 };
 
 onMounted(() => {
-    getSentence();
+    getSentenceRequest();
 });
 </script>
 

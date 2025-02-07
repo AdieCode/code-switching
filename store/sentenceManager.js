@@ -30,6 +30,7 @@ export const useSentenceManager = defineStore('auth', {
       try {
         const config = useRuntimeConfig();
         const baseURL = config.public.baseUrl || 'http://localhost:3001';
+        this.sentence.text = '';
 
         const response = await axios.get(`${baseURL}/sentences/random`);
 
