@@ -8,15 +8,44 @@ export const useSentenceManager = defineStore('auth', {
       id: 0,
       text: '',
     },
+    userPreferences: {
+      ageRange: '10-15',
+      tc: false,
+    },
+    baseURL: useRuntimeConfig().public.baseUrl || 'http://localhost:3001',
   }),
   actions: {
+    loadPreferences() {
+      try {
+        const storedPreferences = localStorage.getItem('userPreferences');
+        console.log('storedPreferences:', storedPreferences);
+        if (storedPreferences) {
+          this.userPreferences = JSON.parse(storedPreferences);
+        } else {
+          this.userPreferences = {
+            ageRange: 'none',
+            tc: false,
+          };
+          this.savePreferences(this.userPreferences);
+        }
+      } catch (error) {
+        this.userPreferences = {
+          ageRange: 'none',
+          tc: false,
+        }
+        console.error('Error loading preferences:', error);
+      }
+    },
+    savePreferences(age_range, tc) {
+      this.userPreferences = {
+        ageRange: age_range,
+        tc: tc,
+      }
+      localStorage.setItem('userPreferences', JSON.stringify({ ageRange: age_range, tc: tc }));
+    },
     async addSentence(sentence) {
       try {
-        // Get the runtime config dynamically within the action
-        const config = useRuntimeConfig();
-        const baseURL = config.public.baseUrl || 'http://localhost:3001';
-
-        const response = await axios.post(`${baseURL}/sentences/add`, {
+        const response = await axios.post(`${this.baseURL}/sentences/add`, {
           sentence: sentence,
         });
 
@@ -28,11 +57,9 @@ export const useSentenceManager = defineStore('auth', {
     },
     async getRandomSentence() {
       try {
-        const config = useRuntimeConfig();
-        const baseURL = config.public.baseUrl || 'http://localhost:3001';
         this.sentence.text = '';
 
-        const response = await axios.get(`${baseURL}/sentences/random`);
+        const response = await axios.get(`${this.baseURL}/sentences/random`);
 
         if (response.status === 200) {
           this.sentence.text = response.data.sentence;
@@ -48,12 +75,20 @@ export const useSentenceManager = defineStore('auth', {
     },
     async rateSentence(vote) {
       try {
-        const config = useRuntimeConfig();
-        const baseURL = config.public.baseUrl || 'http://localhost:3001';
+        const ageRangeSelection = {
+          '18-24': 1,
+          '25-29': 2,
+          '30-40': 3,
+          '40-50': 4,
+          '>50': 5
+        };
 
-        const response = await axios.post(`${baseURL}/vote`, {
+        const selection = ageRangeSelection[this.userPreferences.ageRange] || 0;
+
+        const response = await axios.post(`${this.baseURL}/vote`, {
           sentence_id: this.sentence.id,
           vote: vote,
+          selection: selection,
         });
 
         return response.status === 200;
@@ -64,10 +99,7 @@ export const useSentenceManager = defineStore('auth', {
     },
     async feedback(feedback) {
       try {
-        const config = useRuntimeConfig();
-        const baseURL = config.public.baseUrl || 'http://localhost:3001';
-
-        const response = await axios.post(`${baseURL}/sentences/feedback`, {
+        const response = await axios.post(`${this.baseURL}/sentences/feedback`, {
           sentence_id: this.sentence.id,
           feedback: feedback,
         });

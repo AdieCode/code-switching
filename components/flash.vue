@@ -99,4 +99,15 @@ p{
         width: 100%;
     }
 }
+
+@media (max-width: 768px) {
+    h1 {
+        padding: 20px;
+        font-size: 32px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
 </style>

@@ -7,7 +7,7 @@
         <flash text="Let's review some sentences, shall we?"/>
 
         <!-- back to index page -->
-        <back link=""/>
+        <back link="options"/>
 
         <!-- review content -->
         <div v-if="!feedback" class="review-container">
@@ -129,7 +129,7 @@ const vote = async (option) => {
 };
 
 const done = () => {
-  router.push('/');
+  router.push('/options');
 };
 
 onMounted(() => {

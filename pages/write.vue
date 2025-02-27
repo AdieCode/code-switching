@@ -8,7 +8,7 @@
         <added v-if="add"/>
 
         <!-- back to index page -->
-        <back link=""/>
+        <back link="options"/>
 
         <!-- add sentences -->
         <h2>Add a sentence</h2>
@@ -167,6 +167,30 @@ button:hover::before {
     }
 }
 
+@media (max-width: 768px) {
+    .write-container h2 {
+        font-size: 28px;
+    }
 
+    .write-container p {
+        font-size: 16px;
+    }
+
+    input {
+        min-width: 80%;
+        font-size: 18px;
+    }
+
+    button {
+        min-width: 150px;
+        max-width: 150px;
+        height: 50px;
+        font-size: 24px;
+    }
+
+    button::before {
+        font-size: 24px;
+    }
+}
 
 </style>
