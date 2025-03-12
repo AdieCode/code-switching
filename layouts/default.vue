@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col">
-        <title>Content Manging & Exploring</title>
+        <title>Code-Switching</title>
     </div>
 
     <div>

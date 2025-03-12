@@ -53,6 +53,8 @@
             <h2>feedback</h2>
             <p>Please provide some feedback on the <br>previous sentence.</p>
 
+            <h3 v-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
+
             <div class="">
                 <div 
                     v-for="(option, index) in feedbackOptions" 
