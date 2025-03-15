@@ -8,13 +8,13 @@
         <h2>Please select an option</h2>
         <div class="options">
             <div class="option" @click="toWrite">
-                <h2>Write</h2>
-                <p>give an example of a sentence that demonstrates <br>code-switching, as you understand it.</p>
+                <h2>Add</h2>
+                <p>Provide an example of a sentence that demonstrates <br>code-switching as you understand it</p>
                 <div class="animated-background1"></div>
             </div>
             <div class="option" @click="toReview">
                 <h2>Review</h2>
-                <p>Review sentences of code-switching shared by other users.</p>
+                <p>Review code-switched sentences shared by other users.</p>
                 <div class="animated-background2"></div>
             </div>
         </div>
