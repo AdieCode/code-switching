@@ -84,7 +84,7 @@ const sentenceManager = useSentenceManager();
 const waiting = 'waiting_for_sentence';
 
 
-const popUpVisible = ref(true);
+const popUpVisible = ref(false);
 const feedback = ref(false);
 const feedbackOptions = [
     "Not typically how we speak (unnatural)", 
