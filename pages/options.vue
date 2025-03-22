@@ -34,7 +34,6 @@ function toReview() {
     router.push("/review");
 }
 
-
 </script>
 
 <style lang="css">

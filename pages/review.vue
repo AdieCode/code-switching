@@ -1,5 +1,8 @@
 <template>
     <div>
+        <!-- popup edit box -->
+        <popupEditBox :isVisible="popUpVisible" :onSubmit="sendFeedback" :exit="togglePopup"/>
+
         <!-- learn about code-switching -->
         <info/>
         
@@ -81,7 +84,7 @@ const sentenceManager = useSentenceManager();
 const waiting = 'waiting_for_sentence';
 
 
-const sentence = ref('')
+const popUpVisible = ref(true);
 const feedback = ref(false);
 const feedbackOptions = [
     "Not typically how we speak (unnatural)", 
@@ -112,6 +115,12 @@ const getSentenceRequest = async() => {
 
 const submitFeedback = async (feedbackOption) => {
   try {
+
+    if (feedbackOption === 'Other') {
+        togglePopup();
+        return;
+    }
+
     await sentenceManager.feedback(feedbackOption);
     feedback.value = false;
     await getSentenceRequest();
@@ -133,6 +142,19 @@ const vote = async (option) => {
 const done = () => {
   router.push('/options');
 };
+
+function togglePopup() {
+    popUpVisible.value = !popUpVisible.value;
+}
+
+async function sendFeedback(feedback) {
+    console.log(feedback);
+    await sentenceManager.feedback(feedback);
+    feedback.value = false;
+    await getSentenceRequest();
+    togglePopup();
+}
+
 
 onMounted(() => {
     getSentenceRequest();
