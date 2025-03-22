@@ -1,6 +1,6 @@
 <template>
     <div class="info-container">
-        <p>What is code-switching?</p>
+        <p>How to review/add sentences</p>
         <div class="animated-background"></div>
     </div>
 </template>
@@ -20,7 +20,7 @@ function toWrite() {
 
 <style lang="css" scoped>
 .info-container{
-    min-width: 320px;
+    min-width: 360px;
     min-height: 60px;
     display: flex;
     justify-content: center;

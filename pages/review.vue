@@ -17,7 +17,7 @@
 
             <!-- add sentences -->
             <h2>Review a sentence</h2>
-            <p>Would you classify the following sentence as <br> a valid ”Code Switching” sentence</p>
+            <p>Would you classify the following sentence as <br> a valid code-switched sentence?</p>
 
             <h3 v-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
             <div v-else class="waiting">
@@ -53,8 +53,8 @@
         <div v-if="feedback" class="review-container">
 
             <!-- add sentences -->
-            <h2>feedback</h2>
-            <p>Please provide some feedback on the <br>previous sentence.</p>
+            <!-- <h2>feedback</h2> -->
+            <h2>Why is this not a valid<br> code-switched sentence?</h2>
 
             <h3 v-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
 
@@ -181,8 +181,9 @@ onMounted(() => {
 
 .review-container h2{
     font-size: 36px;
-    font-weight: 600;
+    font-weight: 300;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .review-container h3{

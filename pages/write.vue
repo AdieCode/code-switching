@@ -12,7 +12,7 @@
 
         <!-- add sentences -->
         <h2>Add a sentence</h2>
-        <p>Please type in an example of code-switching, as you understand it.</p>
+        <p>Please provide an example of a code-switched sentence as you understand it</p>
         <form action="" @submit.prevent="addSentence">
             <div class="edit-label">Enter sentence</div>
             <input type="text"  placeholder="Enter sentence" v-model="sentence" required minlength="6">
