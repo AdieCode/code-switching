@@ -2,7 +2,7 @@
     <div class="write-container">
         
         <!-- learn about code-switching -->
-        <info/>
+        <info :text="'What is code-switching?'"/>
 
         <flash text="Let's write some sentences, shall we?"/>
         <added v-if="add"/>
