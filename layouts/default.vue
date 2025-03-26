@@ -21,10 +21,14 @@ sentenceManager.loadPreferences();
 const preferences = sentenceManager.userPreferences;
 
 watch(preferences, (newPreferences) => {
-    if (route.path !== '/') {
+    if (newPreferences.tc && newPreferences.ageRange !== 'none') {
+        if (route.path === '/') {
+            router.push('/options');
+        }
+    } else if (route.path !== '/') {
         if (!newPreferences.tc) {
             router.push('/tc');
-        } else if (newPreferences.ageRange === 'none') {
+        } else if (newPreferences.tc && newPreferences.ageRange === 'none') {
             router.push('/requirements');
         } else {
             router.push('/options');
