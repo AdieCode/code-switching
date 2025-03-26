@@ -319,5 +319,40 @@ onMounted(() => {
   animation: bounce 0.6s infinite;
 }
 
+@media (max-width: 768px) {
+    .review-container h2{
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .review-container h3{
+        font-size: 18px;
+        font-weight: 600;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+
+
+    .review-container p{
+        font-size: 16px;
+        font-weight: 300;
+        text-align: center;
+    }
+
+    .option {
+        padding: 5px;
+        margin: 20px;
+        min-width: 100px;
+    }
+    .option h2{
+        font-size: 18px;
+        font-weight: 300;
+        margin-top: 10px;
+        z-index: 1;
+    }
+}
+
 
 </style>
