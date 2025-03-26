@@ -80,6 +80,7 @@ body{
 .write-container p{
     font-size: 20px;
     font-weight: 300;
+    text-align: center;
 }
 
 form{
