@@ -147,12 +147,22 @@ function togglePopup() {
     popUpVisible.value = !popUpVisible.value;
 }
 
-async function sendFeedback(feedback) {
-    console.log(feedback);
-    await sentenceManager.feedback(feedback);
-    feedback.value = false;
-    await getSentenceRequest();
-    togglePopup();
+async function sendFeedback(feedbackText) {
+    try {
+        await sentenceManager.feedback(feedbackText);
+        feedback.value = false;
+        await getSentenceRequest();
+        togglePopup();
+    } catch (error) {
+        console.error('Error submitting feedback:', error);
+        feedback.value = false;
+        togglePopup();
+        await getSentenceRequest();
+    }
+    // await sentenceManager.feedback(feedback);
+    // feedback.value = false;
+    // await getSentenceRequest();
+    // togglePopup();
 }
 
 

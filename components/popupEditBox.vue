@@ -28,9 +28,9 @@ const props = defineProps({
 
 const inputText = ref('');
 
-function handleSubmit() {
+async function handleSubmit() {
     if (props.onSubmit) {
-        props.onSubmit(inputText.value);
+        await props.onSubmit(inputText.value);
         inputText.value = ''; // Clear the textarea after submission
     }
 }
