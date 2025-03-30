@@ -170,7 +170,7 @@ h1{
         height: 100px;
         margin-bottom: 20px;
         padding: 10px;
-        font-size: 16px;
+        font-size: 12px;
     }
 
     .popup-button {
