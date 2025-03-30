@@ -352,6 +352,18 @@ onMounted(() => {
         margin-top: 10px;
         z-index: 1;
     }
+
+    .feedback-option{
+        padding: 5px;
+        margin: 20px;
+        min-width: 100px;
+    }
+
+    .feedback-option h2{
+        font-size: 18px;
+        font-weight: 300;
+        margin-top: 10px;
+    }
 }
 
 

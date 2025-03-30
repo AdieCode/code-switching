@@ -147,16 +147,43 @@ h1{
 
 @media (max-width: 768px) {
     .info-container {
-        min-width: 280px;
-        min-height: 50px;
-        top: 10px;
-        right: 10px;
-        left: 10px;
+        min-width: 50px;
+        min-height: 10px;
+        top: 0px;
+        right: 0px;
+        left: 0px;
         margin: 0 auto;
+        padding: 10px;
     }
 
     .info-container p {
-        font-size: 18px;
+        font-size: 14px;
+    }
+
+    .popup-box {
+        width: 70%;
+        height: 500px;
+    }
+
+    .popup-textarea {
+        width: 80%;
+        height: 100px;
+        margin-bottom: 20px;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .popup-button {
+        padding: 14px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    h1{
+        font-size: 16px;
+        font-weight: 800;
+        margin-bottom: 20px;
     }
 }
 </style>
