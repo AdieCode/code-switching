@@ -330,9 +330,6 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
-    .fetched-sentence {
-        margin-top: 30px;
-    }
     
     .review-container h2{
         font-size: 18px;
@@ -341,21 +338,20 @@ onMounted(() => {
         margin-bottom: 15px;
         text-align: center;
     }
-
+    
     .review-container h3{
         font-size: 16px;
         font-weight: 600;
         margin-top: 20px;
         margin-bottom: 20px;
     }
-
-
+    
     .review-container p{
         font-size: 16px;
         font-weight: 300;
         text-align: center;
     }
-
+    
     .option {
         padding: 5px;
         margin: 20px;
@@ -367,17 +363,23 @@ onMounted(() => {
         margin-top: 10px;
         z-index: 1;
     }
-
+    
     .feedback-option{
         padding: 5px;
         margin: 20px;
         min-width: 100px;
     }
-
+    
     .feedback-option h2{
         font-size: 18px;
         font-weight: 300;
         margin-top: 10px;
+    }
+
+    .fetched-sentence{
+        text-align: center;
+        padding-top: 40px !important;
+        padding: 0px 5px;
     }
 }
 
