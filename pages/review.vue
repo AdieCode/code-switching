@@ -344,6 +344,7 @@ onMounted(() => {
         font-weight: 600;
         margin-top: 20px;
         margin-bottom: 20px;
+        text-align: center;
     }
     
     .review-container p{
