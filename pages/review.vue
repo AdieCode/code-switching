@@ -333,6 +333,7 @@ onMounted(() => {
     .review-container h2{
         font-size: 18px;
         font-weight: 800;
+        margin-top: 40px;
         margin-bottom: 5px;
         text-align: center;
     }
