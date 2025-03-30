@@ -19,7 +19,7 @@
             <h2>Review a sentence</h2>
             <p>Would you classify the following sentence as <br> a valid code-switched sentence?</p>
 
-            <h3 v-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
+            <h3 v-if="sentenceManager.sentence.text" class="fetched-sentence">"{{ sentenceManager.sentence.text }}"</h3>
             <div v-else class="waiting">
                 <div
                     v-for="(letter, index) in waiting.split('')"  
@@ -330,11 +330,15 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
+    .fetched-sentence {
+        margin-top: 30px;
+    }
+    
     .review-container h2{
         font-size: 18px;
         font-weight: 800;
-        margin-top: 40px;
-        margin-bottom: 5px;
+        margin-top: 60px;
+        margin-bottom: 15px;
         text-align: center;
     }
 
