@@ -211,7 +211,7 @@ onMounted(() => {
 }
 
 .options{
-    margin-top: 20px;
+    margin-top: 40px;
     display: flex;
 }
 
@@ -331,17 +331,17 @@ onMounted(() => {
 
 @media (max-width: 768px) {
     .review-container h2{
-        font-size: 24px;
-        font-weight: 500;
-        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 5px;
         text-align: center;
     }
 
     .review-container h3{
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
-        margin-top: 50px;
-        margin-bottom: 30px;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
 
