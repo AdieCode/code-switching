@@ -1,7 +1,7 @@
 <template>
     <div>
-        <!-- popup edit box -->
-        <popupEditBox :isVisible="popUpVisible" :onSubmit="sendFeedback" :exit="togglePopup"/>
+         <!-- popup edit box -->
+         <popupEditBox :isVisible="popUpVisible" :onSubmit="sendFeedback" :exit="togglePopup"/>
 
         <!-- learn about code-switching -->
         <info/>
@@ -17,9 +17,9 @@
 
             <!-- add sentences -->
             <h2>Review a sentence</h2>
-            <p>Would you classify the following sentence as <br> a valid code-switched sentence?</p>
+            <p>Would you classify the following sentence as <br> a valid ”Code Switching” sentence</p>
 
-            <h3 v-if="sentenceManager.sentence.text" class="fetched-sentence">"{{ sentenceManager.sentence.text }}"</h3>
+            <h3 v-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
             <div v-else class="waiting">
                 <div
                     v-for="(letter, index) in waiting.split('')"  
@@ -33,17 +33,17 @@
             </div>
 
             <div class="options">
-                <div class="option " @click="vote('yes')">
+                <div class="option " @click="vote('yes')" :class="{ disabled: loading }">
                     <h2>Yes</h2>
                     <div class="animated-background1 green"></div>
                 </div>
-                <div class="option" @click="vote('no')">
+                <div class="option" @click="vote('no')" :class="{ disabled: loading }">
                     <h2>No</h2>
                     <div class="animated-background2 red"></div>
                 </div>
             </div>
             <div class="options">
-                <div class="option" @click="done">
+                <div class="option" @click="done" :class="{ disabled: loading }">
                     <h2>Done</h2>
                     <div class="animated-background1"></div>
                 </div>
@@ -53,8 +53,8 @@
         <div v-if="feedback" class="review-container">
 
             <!-- add sentences -->
-            <!-- <h2>feedback</h2> -->
-            <h2>Why is this not a valid<br> code-switched sentence?</h2>
+            <h2>feedback</h2>
+            <p>Please provide some feedback on the <br>previous sentence.</p>
 
             <h3 v-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
 
@@ -83,9 +83,10 @@ const router = useRouter();
 const sentenceManager = useSentenceManager();
 const waiting = 'waiting_for_sentence';
 
-
+const sentence = ref('');
 const popUpVisible = ref(false);
 const feedback = ref(false);
+const loading = ref(false); // Add loading state
 const feedbackOptions = [
     "Not typically how we speak (unnatural)", 
     "Doesn't make sense (nonsensical)", 
@@ -94,53 +95,62 @@ const feedbackOptions = [
     "Other"
 ];
 
-const addVoteRequest = async(vote) =>{
+const addVoteRequest = async (vote) => {
     try {
-        const response = sentenceManager.rateSentence(vote);
-        return response
+        return await sentenceManager.rateSentence(vote);
     } catch (error) {
         console.error('Error:', error);
     }
-} 
+};
 
-const getSentenceRequest = async() => {
+const getSentenceRequest = async () => {
     try {
-        const response = await sentenceManager.getRandomSentence();
-
-        return response;
+        return await sentenceManager.getRandomSentence();
     } catch (error) {
         console.error('Error:', error);
     }
-}
+};
 
 const submitFeedback = async (feedbackOption) => {
-  try {
+    if (loading.value) return; // Prevent multiple submissions
+    loading.value = true;
+    try {
+        if (feedbackOption === 'Other') {
+            togglePopup();
+            return;
+        }
 
-    if (feedbackOption === 'Other') {
-        togglePopup();
-        return;
+        await sentenceManager.feedback(feedbackOption);
+        feedback.value = false;
+        await getSentenceRequest();
+    } catch (error) {
+        console.error('Error submitting feedback:', error);
+    } finally {
+        loading.value = false;
     }
-
-    await sentenceManager.feedback(feedbackOption);
-    feedback.value = false;
-    await getSentenceRequest();
-  } catch (error) {
-    console.error('Error submitting feedback:', error);
-  }
 };
 
 const vote = async (option) => {
-  if (option === 'no') {
-    await addVoteRequest(option);
-    feedback.value = true;
-  } else {
-    await addVoteRequest(option);
-    await getSentenceRequest();
-  }
+    if (loading.value) return; // Prevent multiple submissions
+    loading.value = true;
+    try {
+        if (option === 'no') {
+            await addVoteRequest(option);
+            feedback.value = true;
+        } else {
+            await addVoteRequest(option);
+            await getSentenceRequest();
+        }
+    } catch (error) {
+        console.error('Error voting:', error);
+    } finally {
+        loading.value = false;
+    }
 };
 
 const done = () => {
-  router.push('/options');
+    if (loading.value) return; // Prevent multiple submissions
+    router.push('/options');
 };
 
 function togglePopup() {
@@ -164,7 +174,6 @@ async function sendFeedback(feedbackText) {
     // await getSentenceRequest();
     // togglePopup();
 }
-
 
 onMounted(() => {
     getSentenceRequest();
@@ -191,9 +200,8 @@ onMounted(() => {
 
 .review-container h2{
     font-size: 36px;
-    font-weight: 300;
+    font-weight: 600;
     margin-bottom: 10px;
-    text-align: center;
 }
 
 .review-container h3{
@@ -211,7 +219,7 @@ onMounted(() => {
 }
 
 .options{
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
 }
 
@@ -329,60 +337,9 @@ onMounted(() => {
   animation: bounce 0.6s infinite;
 }
 
-@media (max-width: 768px) {
-    
-    .review-container h2{
-        font-size: 18px;
-        font-weight: 800;
-        margin-top: 100px;
-        margin-bottom: 15px;
-        text-align: center;
-    }
-    
-    .review-container h3{
-        font-size: 16px;
-        font-weight: 600;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-    
-    .review-container p{
-        font-size: 16px;
-        font-weight: 300;
-        text-align: center;
-    }
-    
-    .option {
-        padding: 5px;
-        margin: 20px;
-        min-width: 100px;
-    }
-    .option h2{
-        font-size: 18px;
-        font-weight: 300;
-        margin-top: 10px;
-        z-index: 1;
-    }
-    
-    .feedback-option{
-        padding: 5px;
-        margin: 20px;
-        min-width: 100px;
-    }
-    
-    .feedback-option h2{
-        font-size: 18px;
-        font-weight: 300;
-        margin-top: 10px;
-    }
-
-    .fetched-sentence{
-        text-align: center;
-        padding-top: 40px !important;
-        padding: 0px 5px;
-    }
+.option.disabled {
+    pointer-events: none;
+    opacity: 0.6;
 }
-
 
 </style>

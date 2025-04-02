@@ -16,7 +16,7 @@
         <form action="" @submit.prevent="addSentence">
             <div class="edit-label">Enter sentence</div>
             <input type="text"  placeholder="Enter sentence" v-model="sentence" required minlength="6">
-            <button>Submit</button>
+            <button :disabled="loading">Submit</button>
         </form>
     </div>
 </template>
@@ -28,19 +28,26 @@ import { useSentenceManager } from '../store/sentenceManager';
 const sentenceManager = useSentenceManager();
 const add = ref(false);
 const sentence = ref('');
+const loading = ref(false); // Add loading state
 
 async function addSentence (){
+    if (loading.value) return; // Prevent multiple submissions
+    loading.value = true;
     add.value = true;
-    await sentenceManager.addSentence(sentence.value);
 
-
-    setTimeout(function() {
-        sentence.value = '';
-    }, 600); 
-
-    setTimeout(function() {
-        add.value = false;
-    }, 1300); 
+    try {
+        await sentenceManager.addSentence(sentence.value);
+        setTimeout(() => {
+            sentence.value = '';
+        }, 600);
+    } catch (error) {
+        console.error('Error adding sentence:', error);
+    } finally {
+        setTimeout(() => {
+            add.value = false;
+            loading.value = false;
+        }, 1300);
+    }
 }
 </script>
 
@@ -166,6 +173,13 @@ button:hover::before {
     100%{
         color: #fff;
     }
+}
+
+button:disabled {
+    pointer-events: none;
+    opacity: 0.6;
+    background-color: #f0f0f0; /* Add gray background */
+    color: #a0a0a0; /* Add gray text color */
 }
 
 @media (max-width: 768px) {

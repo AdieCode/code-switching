@@ -4,11 +4,11 @@
             <h1>Please enter your feedback below</h1>
             <textarea v-model="inputText" class="popup-textarea" placeholder="Enter your text here..."></textarea>
             <div class="options">
-                <div class="info-container" @click="exit">
+                <div class="info-container" @click="exit" :class="{ disabled: loading }">
                     <p>Back</p>
                     <div class="animated-background"></div>
                 </div>
-                <div class="info-container" @click="handleSubmit">
+                <div class="info-container" @click="handleSubmit" :class="{ disabled: loading }">
                     <p>Submit</p>
                     <div class="animated-background"></div>
                 </div>
@@ -27,19 +27,27 @@ const props = defineProps({
 });
 
 const inputText = ref('');
+const loading = ref(false); // Add loading state
 
 async function handleSubmit() {
-    if (props.onSubmit) {
-        await props.onSubmit(inputText.value);
-        inputText.value = ''; // Clear the textarea after submission
+    if (loading.value) return; // Prevent multiple submissions
+    loading.value = true;
+    try {
+        if (props.onSubmit) {
+            await props.onSubmit(inputText.value);
+            inputText.value = ''; // Clear the textarea after submission
+        }
+    } finally {
+        loading.value = false;
     }
 }
 
 function exit() {
+    if (loading.value) return; // Prevent multiple submissions
     if (props.exit) {
         props.exit();
         inputText.value = ''; // Clear the textarea after submission
-    } 
+    }
 }
 </script>
 
@@ -136,6 +144,11 @@ h1{
 
 .info-container:hover p{
     color: #fff;
+}
+
+.info-container.disabled {
+    pointer-events: none;
+    opacity: 0.6;
 }
 
 .options{
