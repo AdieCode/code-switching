@@ -362,7 +362,7 @@ onMounted(() => {
     }
 
     .review-container h3{
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 600;
         margin-top: 50px;
         margin-bottom: 30px;
