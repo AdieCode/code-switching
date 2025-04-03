@@ -370,6 +370,7 @@ onMounted(() => {
 
 
     .review-container p{
+        margin-bottom: 20px;
         font-size: 16px;
         font-weight: 300;
         text-align: center;
@@ -381,7 +382,7 @@ onMounted(() => {
     }
 
     .option{
-        padding: 10px;
+        padding: 5px;
         margin: 20px;
         min-width: 100px;
         cursor: pointer;
@@ -396,7 +397,7 @@ onMounted(() => {
     }
 
     .feedback-option{
-        padding: 15px;
+        padding: 10px;
         margin: 20px;
         min-width: 150px;
         cursor: pointer;
