@@ -404,6 +404,7 @@ onMounted(() => {
     }
 
     .feedback-option h2{
+        text-align: center;
         font-size: 18px;
         font-weight: 300;
         margin-top: 10px;
