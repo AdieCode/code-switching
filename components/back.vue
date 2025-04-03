@@ -57,5 +57,17 @@ function toWrite() {
     color: #fff;
 }
 
+@media (max-width: 768px) {
+    .info-container {
+        min-width: 120px;
+        min-height: 50px;
+        top: 10px;
+        left: 10px;
+    }
+
+    .info-container p {
+        font-size: 24px;
+    }
+}
 
 </style>

@@ -2,7 +2,7 @@
     <div class="main-container">
 
         <!-- learn about code-switching -->
-        <info/>
+        <info :text="'What is code-switching?'"/>
 
         <!-- the options provided to the user -->
         <h2>Please select an option</h2>
@@ -34,7 +34,6 @@ function toReview() {
     router.push("/review");
 }
 
-
 </script>
 
 <style lang="css">
@@ -63,12 +62,17 @@ body{
     align-items: center;
 }
 .main-container h2{
+    text-align: center;
     font-size: 32px;
     font-weight: 400;
+    width: 80%;
 }
 .options{
-    margin-top: 20px;
+    width: 100%;
+    margin: 20px;
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 
@@ -85,8 +89,9 @@ body{
 }
 
 .option h2{
-    font-size: 32px;
-    font-weight: 400;
+    font-size: 32px !important;
+    font-weight: 400 !important;
+    text-align: center !important;
     margin-bottom: 10px;
     z-index: 1;
 }
@@ -137,7 +142,37 @@ body{
     font-weight: 300;
 }
 
+@media (max-width: 768px) {
+    .main-container h2{
+        font-size: 20px;
+        font-weight: 900;
+        width: 80%;
+    }
+    .options {
+        flex-direction: column; /* Stack options vertically on mobile */
+        align-items: center;
+        justify-content: center;
+    }
+
+    .option {
+        width: 70%; /* Adjust width for smaller screens */
+        margin: 10px;
+    }
+
+    .option h2{
+        font-size: 20px !important;
+        font-weight: 600 !important;
+        text-align: center;
+    }
+
+    .option p{
+        max-width: 200px;
+        height: auto;
+        font-size: 16px;
+        font-weight: 300;
+    }
 
 
+}
 
 </style>

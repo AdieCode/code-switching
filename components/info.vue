@@ -1,25 +1,43 @@
 <template>
-    <div class="info-container">
-        <p>How to review/add sentences</p>
+    <div class="info-container" @click="toWrite">
+        <p>{{ displayText }}</p>
         <div class="animated-background"></div>
     </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
-const router = useRouter()
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const router = useRouter();
 
 const props = defineProps({
     text: { type: String, default: 'no name' },
     link: { type: String, default: '/' }
-})
+});
+
+const displayText = ref(props.text);
+
+function updateTextBasedOnScreenSize() {
+    displayText.value = window.innerWidth <= 768 ? 'Info' : props.text;
+}
+
+onMounted(() => {
+    updateTextBasedOnScreenSize();
+    window.addEventListener('resize', updateTextBasedOnScreenSize);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('resize', updateTextBasedOnScreenSize);
+});
+
 function toWrite() {
-    router.push('/'+ props.link);
+    router.push('/' + props.link);
 }
 </script>
 
 <style lang="css" scoped>
-.info-container{
+.info-container {
     min-width: 360px;
     min-height: 60px;
     display: flex;
@@ -32,14 +50,14 @@ function toWrite() {
     cursor: pointer;
 }
 
-.info-container p{
+.info-container p {
     font-size: 24px;
     font-weight: 400;
     transition: 0.1s;
     z-index: 1;
 }
 
-.animated-background{
+.animated-background {
     width: 100%;
     height: 0%;
     background-color: #000000;
@@ -49,21 +67,22 @@ function toWrite() {
     transition: 0.14s;
 }
 
-.info-container:hover .animated-background{
+.info-container:hover .animated-background {
     height: 100%;
 }
 
-.info-container:hover p{
+.info-container:hover p {
     color: #fff;
 }
 
 @media (max-width: 768px) {
     .info-container {
-        min-width: 280px;
+        min-width: 80px;
+        max-width: 80px;
         min-height: 50px;
         top: 10px;
         right: 10px;
-        left: 10px;
+        right: 10px;
         margin: 0 auto;
     }
 
