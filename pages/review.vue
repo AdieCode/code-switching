@@ -53,7 +53,6 @@
         <div v-if="feedback" class="review-container">
 
             <!-- add sentences -->
-            <h2>feedback</h2>
             <p>Why is this not a valid code-switched sentence?</p>
 
             <h3 v-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
