@@ -348,11 +348,13 @@ onMounted(() => {
 @media (max-width: 768px) {
     .review-container{
         width: 90%;
+        height: auto;
         margin: auto;
+        margin-top: 120px;
     }
 
     .review-container h2{
-        font-size: 30px;
+        font-size: 24px;
         font-weight: 800;
         margin-bottom: 10px;
     }
@@ -366,7 +368,7 @@ onMounted(() => {
 
 
     .review-container p{
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 300;
         text-align: center;
     }
