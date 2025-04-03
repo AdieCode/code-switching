@@ -185,7 +185,8 @@ button:disabled {
 
 @media (max-width: 768px) {
     .write-container h2 {
-        font-size: 28px;
+        font-size: 24px;
+        font-weight: 800;
     }
 
     .write-container p {
