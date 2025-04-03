@@ -17,7 +17,7 @@
 
             <!-- add sentences -->
             <h2>Review a sentence</h2>
-            <p>Would you classify the following sentence as <br> a valid ”Code Switching” sentence</p>
+            <p>Would you classify the following sentence as a valid ”Code Switching” sentence</p>
 
             <h3 v-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
             <div v-else class="waiting">
@@ -50,7 +50,7 @@
             </div>
         </div>
         <!-- provide feedback -->
-        <div v-if="feedback" class="review-container">
+        <div v-if="feedback" class="review-container feedback-container">
 
             <!-- add sentences -->
             <h2>feedback</h2>
@@ -189,6 +189,7 @@ onMounted(() => {
 .green{
     background-color: green !important;
 }
+
 .review-container{
     width: 100%;
     height: 100dvh;
@@ -209,12 +210,14 @@ onMounted(() => {
     font-weight: 600;
     margin-top: 50px;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 
 .review-container p{
     font-size: 20px;
     font-weight: 300;
+    margin-top: 10px;
     text-align: center;
 }
 
@@ -340,6 +343,74 @@ onMounted(() => {
 .option.disabled {
     pointer-events: none;
     opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+    .review-container{
+        width: 90%;
+        margin: auto;
+    }
+
+    .review-container h2{
+        font-size: 30px;
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+
+    .review-container h3{
+        font-size: 24px;
+        font-weight: 600;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+
+
+    .review-container p{
+        font-size: 18px;
+        font-weight: 300;
+        text-align: center;
+    }
+
+    .options{
+        margin-top: 20px;
+        display: flex;
+    }
+
+    .option{
+        padding: 10px;
+        margin: 20px;
+        min-width: 100px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .option h2{
+        font-size: 24px;
+        font-weight: 300;
+        margin-top: 10px;
+        z-index: 1;
+    }
+
+    .feedback-container {
+        margin-top: 40px;
+    }
+
+    .feedback-option{
+        padding: 15px;
+        margin: 20px;
+        min-width: 150px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .feedback-option h2{
+        font-size: 18px;
+        font-weight: 300;
+        margin-top: 10px;
+        z-index: 1;
+    }
+
+
 }
 
 </style>

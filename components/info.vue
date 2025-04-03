@@ -13,7 +13,7 @@ const router = useRouter();
 
 const props = defineProps({
     text: { type: String, default: 'no name' },
-    link: { type: String, default: '/' }
+    link: { type: String, default: '' }
 });
 
 const displayText = ref(props.text);
