@@ -4,7 +4,7 @@
          <popupEditBox :isVisible="popUpVisible" :onSubmit="sendFeedback" :exit="togglePopup"/>
 
         <!-- learn about code-switching -->
-        <info/>
+        <info :text="'How to review/add sentences'"/>
         
         <!-- <flash text="Let's add some sentences, shall we?" direction="left"/> -->
         <flash text="Let's review some sentences, shall we?"/>

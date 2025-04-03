@@ -2,7 +2,7 @@
     <div class="main-container">
 
         <!-- learn about code-switching -->
-        <info :text="'What is code-switching?'"/>
+        <info :text="'How to review/add sentences'"/>
 
         <!-- the options provided to the user -->
         <h2>Please select an option</h2>
