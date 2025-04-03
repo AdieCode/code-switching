@@ -126,6 +126,7 @@ form:focus-within .edit-label{
 }
 
 button{
+    user-select: none; 
     min-width: 195px;
     max-width: 195px;
     height: 70px;

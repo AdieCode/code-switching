@@ -50,7 +50,7 @@
             </div>
         </div>
         <!-- provide feedback -->
-        <div v-if="feedback" class="review-container feedback-container">
+        <div v-if="feedback" class="review-container">
 
             <!-- add sentences -->
             <h2>feedback</h2>
@@ -227,6 +227,7 @@ onMounted(() => {
 }
 
 .option{
+    user-select: none; 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -248,6 +249,7 @@ onMounted(() => {
 }
 
 .feedback-option{
+    user-select: none; 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -391,10 +393,6 @@ onMounted(() => {
         font-weight: 300;
         margin-top: 10px;
         z-index: 1;
-    }
-
-    .feedback-container {
-        margin-top: 40px;
     }
 
     .feedback-option{

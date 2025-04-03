@@ -38,6 +38,7 @@ function toWrite() {
 
 <style lang="css" scoped>
 .info-container {
+    user-select: none; 
     min-width: 360px;
     min-height: 60px;
     display: flex;
