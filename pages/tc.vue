@@ -65,7 +65,7 @@ const sentenceManager = useSentenceManager();
 
 function agreeToTerms() {
     console.log("Are you sure you want to proceed?");
-    sentenceManager.savePreferences(sentenceManager.userPreferences.ageRange, true);
+    sentenceManager.savePreferences('none', true);
 }
 </script>
 
@@ -92,6 +92,7 @@ h1 {
     font-size: 36px;
     font-weight: 800;
     text-align: start !important; 
+    margin: 20px;
     margin-top: 60px;
     margin-bottom: 60px;
     text-align: center;
@@ -100,7 +101,7 @@ h1 {
 
 
 section {
-    width: 100%;
+    width: 80%;
     max-width: 800px;
     margin-bottom: 40px;
 }

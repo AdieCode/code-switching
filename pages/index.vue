@@ -66,6 +66,7 @@ h1 {
     font-size: 36px;
     font-weight: 800;
     text-align: start !important; 
+    margin: 20px;
     margin-top: 60px;
     margin-bottom: 60px;
     text-align: center;
@@ -73,7 +74,7 @@ h1 {
 }
 
 section {
-    width: 100%;
+    width: 80%;
     max-width: 800px;
     margin-bottom: 40px;
 }
@@ -99,6 +100,21 @@ li {
     font-size: 18px;
     font-weight: 300;
     margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .info-container {
+        min-width: 280px;
+        min-height: 50px;
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        margin: 0 auto;
+    }
+
+    .info-container p {
+        font-size: 18px;
+    }
 }
 
 </style>

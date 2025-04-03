@@ -1,5 +1,5 @@
 <template>
-    <div class="info-container" @click="redirect">
+    <div class="button-container" @click="redirect">
         <p>{{ text }}</p>
         <div class="animated-background"></div>
     </div>
@@ -25,7 +25,7 @@ function redirect() {
 </script>
 
 <style lang="css" scoped>
-.info-container{
+.button-container{
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -35,7 +35,7 @@ function redirect() {
     cursor: pointer;
 }
 
-.info-container p{
+.button-container p{
     font-size: 24px;
     font-weight: 400;
     transition: 0.1s;
@@ -52,25 +52,25 @@ function redirect() {
     transition: 0.14s;
 }
 
-.info-container:hover .animated-background{
+.button-container:hover .animated-background{
     height: 100%;
 }
 
-.info-container:hover p{
+.button-container:hover p{
     color: #fff;
 }
 
 @media (max-width: 768px) {
-    .info-container {
-        min-width: 280px;
-        min-height: 50px;
+    .button-container {
+        width: 180px;
+        height: 30px;
         top: 10px;
         right: 10px;
         left: 10px;
         margin: 0 auto;
     }
 
-    .info-container p {
+    .button-container p {
         font-size: 18px;
     }
 }

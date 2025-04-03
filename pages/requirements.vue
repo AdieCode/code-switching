@@ -24,6 +24,14 @@ const sentenceManager = useSentenceManager();
 function setAgeRange(ageRange) {
     sentenceManager.savePreferences(ageRange, sentenceManager.userPreferences.tc);
 }
+
+onMounted(() => {
+    console.log("Component mounted!");
+    if (sentenceManager.userPreferences.ageRange === 'none') {
+        console.log("Logic ran!");
+        sentenceManager.savePreferences('18-24', sentenceManager.userPreferences.tc);
+    }
+});
 </script>
 
 <style scoped>
@@ -38,9 +46,18 @@ function setAgeRange(ageRange) {
     text-align: center;
 }
 
-h2 {
+h1 {
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 800;
+    width: 80%;
+    margin: auto;
+    margin-top: 16px;
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 300;
     margin-top: 16px;
     margin-bottom: 40px;
 }
