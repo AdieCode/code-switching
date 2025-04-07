@@ -78,8 +78,7 @@ function toWrite() {
 
 @media (max-width: 768px) {
     .info-container {
-        min-width: 80px;
-        max-width: 80px;
+        min-width: 120px;
         min-height: 50px;
         top: 10px;
         right: 10px;
@@ -88,7 +87,7 @@ function toWrite() {
     }
 
     .info-container p {
-        font-size: 18px;
+        font-size: 24px;
     }
 }
 </style>
