@@ -12,13 +12,17 @@ export const useSentenceManager = defineStore('auth', {
       ageRange: '10-15',
       tc: false,
     },
+    votedSentenceIds: [], // List to store voted sentence IDs
     baseURL: useRuntimeConfig().public.baseUrl || 'http://localhost:3001',
   }),
   actions: {
     loadPreferences() {
       try {
         const storedPreferences = localStorage.getItem('userPreferences');
+        const storedVotedIds = localStorage.getItem('votedSentenceIds'); // Load voted IDs from local storage
         console.log('storedPreferences:', storedPreferences);
+        console.log('storedVotedIds:', storedVotedIds);
+
         if (storedPreferences) {
           this.userPreferences = JSON.parse(storedPreferences);
         } else {
@@ -26,13 +30,19 @@ export const useSentenceManager = defineStore('auth', {
             ageRange: 'none',
             tc: false,
           };
-          this.savePreferences(this.userPreferences);
+        }
+
+        if (storedVotedIds) {
+          this.votedSentenceIds = JSON.parse(storedVotedIds);
+        } else {
+          this.votedSentenceIds = [];
         }
       } catch (error) {
         this.userPreferences = {
           ageRange: 'none',
           tc: false,
-        }
+        };
+        this.votedSentenceIds = [];
         console.error('Error loading preferences:', error);
       }
     },
@@ -40,8 +50,9 @@ export const useSentenceManager = defineStore('auth', {
       this.userPreferences = {
         ageRange: age_range,
         tc: tc,
-      }
-      localStorage.setItem('userPreferences', JSON.stringify({ ageRange: age_range, tc: tc }));
+      };
+      localStorage.setItem('userPreferences', JSON.stringify(this.userPreferences));
+      localStorage.setItem('votedSentenceIds', JSON.stringify(this.votedSentenceIds)); // Save voted IDs to local storage
     },
     async addSentence(sentence) {
       try {
@@ -59,7 +70,9 @@ export const useSentenceManager = defineStore('auth', {
       try {
         this.sentence.text = '';
 
-        const response = await axios.get(`${this.baseURL}/sentences/random`);
+        const response = await axios.post(`${this.baseURL}/sentences/random`, {
+          excludeIds: this.votedSentenceIds // Send voted IDs with the request
+        });
 
         if (response.status === 200) {
           this.sentence.text = response.data.sentence;
@@ -80,7 +93,7 @@ export const useSentenceManager = defineStore('auth', {
           '25-29': 2,
           '30-40': 3,
           '40-50': 4,
-          '>50': 5
+          '>50': 5,
         };
 
         const selection = ageRangeSelection[this.userPreferences.ageRange] || 0;
@@ -91,7 +104,12 @@ export const useSentenceManager = defineStore('auth', {
           selection: selection,
         });
 
-        return response.status === 200;
+        if (response.status === 200) {
+          this.votedSentenceIds.push(this.sentence.id); // Add voted sentence ID to the list
+          localStorage.setItem('votedSentenceIds', JSON.stringify(this.votedSentenceIds)); // Update local storage
+          return true;
+        }
+        return false;
       } catch (error) {
         console.error('Error rating sentence:', error);
         return false;
