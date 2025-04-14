@@ -13,6 +13,7 @@ export const useSentenceManager = defineStore('auth', {
       tc: false,
     },
     votedSentenceIds: [], // List to store voted sentence IDs
+    canVote: true,
     baseURL: useRuntimeConfig().public.baseUrl || 'http://localhost:3001',
   }),
   actions: {
@@ -77,11 +78,16 @@ export const useSentenceManager = defineStore('auth', {
         if (response.status === 200) {
           this.sentence.text = response.data.sentence;
           this.sentence.id = response.data.id;
+          this.canVote = true;
           return response.data;
         }
+
         console.log('Something went wrong');
         return null;
       } catch (error) {
+        this.sentence.text = "No sentence found to review.";
+        this.sentence.id = 0;
+        this.canVote = false;
         console.error('Error getting random sentence:', error);
         return null;
       }
@@ -98,16 +104,18 @@ export const useSentenceManager = defineStore('auth', {
 
         const selection = ageRangeSelection[this.userPreferences.ageRange] || 0;
 
-        const response = await axios.post(`${this.baseURL}/vote`, {
-          sentence_id: this.sentence.id,
-          vote: vote,
-          selection: selection,
-        });
-
-        if (response.status === 200) {
-          this.votedSentenceIds.push(this.sentence.id); // Add voted sentence ID to the list
-          localStorage.setItem('votedSentenceIds', JSON.stringify(this.votedSentenceIds)); // Update local storage
-          return true;
+        if (this.canVote) {
+          const response = await axios.post(`${this.baseURL}/vote`, {
+            sentence_id: this.sentence.id,
+            vote: vote,
+            selection: selection,
+          });
+  
+          if (response.status === 200) {
+            this.votedSentenceIds.push(this.sentence.id); // Add voted sentence ID to the list
+            localStorage.setItem('votedSentenceIds', JSON.stringify(this.votedSentenceIds)); // Update local storage
+            return true;
+          }
         }
         return false;
       } catch (error) {
