@@ -19,7 +19,8 @@
             <h2>Review a sentence</h2>
             <p>Would you classify the following sentence as a valid code-switched sentence?</p>
 
-            <h3 v-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
+            <h3 v-if="sentenceManager.sentence.text === 'No sentence found to review.'">{{ sentenceManager.sentence.text }}</h3>
+            <h3 v-else-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
             <div v-else class="waiting">
                 <div
                     v-for="(letter, index) in waiting.split('')"  
@@ -32,7 +33,7 @@
                 </div>
             </div>
 
-            <div class="options">
+            <div v-if="sentenceManager.canVote" class="options">
                 <div class="option " @click="vote('yes')" :class="{ disabled: loading }">
                     <h2>Yes</h2>
                     <div class="animated-background1 green"></div>
