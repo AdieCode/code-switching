@@ -85,7 +85,7 @@ export const useSentenceManager = defineStore('auth', {
         console.log('Something went wrong');
         return null;
       } catch (error) {
-        this.sentence.text = "No sentence found to review.";
+        this.sentence.text = "No more sentences to review";
         this.sentence.id = 0;
         this.canVote = false;
         console.error('Error getting random sentence:', error);
