@@ -19,18 +19,18 @@
             <h2>Review a sentence</h2>
             <p>Would you classify the following sentence as a valid code-switched sentence?</p>
 
-            <h3 v-if="sentenceManager.sentence.text === 'No sentence found to review.'">{{ sentenceManager.sentence.text }}</h3>
+            <h3 v-if="sentenceManager.sentence.text === 'No more sentences to review'">{{ sentenceManager.sentence.text }}</h3>
             <h3 v-else-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
             <div v-else class="waiting">
-                <div
+                <!-- <div
                     v-for="(letter, index) in waiting.split('')"  
                     :key="index"
                     class="animate-letter"
                     :style="{ animationDelay: index * 0.04 + 's' }"
                 >
-                    <h4>{{ letter }}</h4>
-                    
-                </div>
+                
+                </div> -->
+                <h4>{{ waiting }}</h4>
             </div>
 
             <div v-if="sentenceManager.canVote" class="options">
@@ -81,7 +81,7 @@ import { useSentenceManager } from '../store/sentenceManager';
 
 const router = useRouter();
 const sentenceManager = useSentenceManager();
-const waiting = 'waiting_for_sentence';
+const waiting = 'Loading sentences...';
 
 const sentence = ref('');
 const popUpVisible = ref(false);
@@ -326,6 +326,7 @@ onMounted(() => {
 .waiting{
     padding-top: 40px;
     padding-bottom: 20px;
+    animation: flash 1s infinite;
 }
 
 @keyframes bounce {
@@ -337,9 +338,19 @@ onMounted(() => {
   }
 }
 
+@keyframes flash {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+
 .animate-letter {
   display: inline-block;
-  animation: bounce 0.6s infinite;
+  /* animation: bounce 0.6s infinite; */
 }
 
 .option.disabled {
