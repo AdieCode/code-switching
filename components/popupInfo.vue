@@ -1,6 +1,6 @@
 <template>
     <div v-if="isVisible" class="popup-container" @click="toggleFunction">
-        <div class="popup-box" @click.stop>
+        <div class="popup-box">
             <h1>Guidelines for reviewing and adding sentences</h1>
             <p>Sentences should be evaluated whether they are natural, comprehensible and
                 grammatically correct. The following are some reasons why code-switched
