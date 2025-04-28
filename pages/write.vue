@@ -2,7 +2,8 @@
     <div class="write-container">
         
         <!-- learn about code-switching -->
-        <info :text="'Guide on how to review/add sentences'"/>
+        <popupInfo :isVisible="infoPopUpIsVisible" :toggleFunction="toggleInfoPopup"/>
+        <info :text="'Guide on how to review/add sentences'" :onClickFunction="toggleInfoPopup"/>
 
         <!-- <flash text="Let's write some sentences, shall we?"/> -->
         <added v-if="add"/>
@@ -35,6 +36,7 @@ const sentenceManager = useSentenceManager();
 const add = ref(false);
 const sentence = ref('');
 const loading = ref(false); // Add loading state
+const infoPopUpIsVisible = ref(false);
 
 const selectedTopic = ref("")
 
@@ -81,9 +83,10 @@ async function addSentence (){
     }
 }
 
-function setAgeRange(value){
+    function toggleInfoPopup() {
+        infoPopUpIsVisible.value = !infoPopUpIsVisible.value
+    }
 
-}
 </script>
 
 <style lang="css">

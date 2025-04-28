@@ -4,7 +4,8 @@
          <popupEditBox :isVisible="popUpVisible" :onSubmit="sendFeedback" :exit="togglePopup"/>
 
         <!-- learn about code-switching -->
-        <info :text="'Guide on how to review/add sentences'"/>
+        <popupInfo :isVisible="infoPopUpIsVisible" :toggleFunction="toggleInfoPopup"/>
+        <info :text="'Guide on how to review/add sentences'" :onClickFunction="toggleInfoPopup"/>
         
         <!-- <flash text="Let's add some sentences, shall we?" direction="left"/> -->
         <!-- <flash text="Let's review some sentences, shall we?"/> -->
@@ -94,6 +95,11 @@ const feedbackOptions = [
     "No code switching (only one language used)", 
     "Other"
 ];
+
+const infoPopUpIsVisible = ref(false);
+function toggleInfoPopup() {
+    infoPopUpIsVisible.value = !infoPopUpIsVisible.value
+}
 
 const addVoteRequest = async (vote) => {
     try {
