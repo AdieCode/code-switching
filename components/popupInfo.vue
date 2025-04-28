@@ -1,6 +1,7 @@
 <template>
     <div v-if="isVisible" class="popup-container" @click="toggleFunction">
         <div class="popup-box">
+            <h2 class="click-info"> tap/click to exit</h2>
             <h1>Guidelines for reviewing and adding sentences</h1>
             <p>Sentences should be evaluated whether they are natural, comprehensible and
                 grammatically correct. The following are some reasons why code-switched
@@ -143,6 +144,17 @@ li{
     align-items: start;
     border-radius: 8px;
     padding: 30px;
+}
+
+.click-info {
+    position: absolute;
+    top: -10px;
+    color: #fff;
+    text-shadow:
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
 }
 
 .example-container{

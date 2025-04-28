@@ -1,6 +1,7 @@
 <template>
     <div v-if="isVisible" class="popup-container" @click="toggleFunction">
         <div class="popup-box">
+            <h2 class="click-info"> tap/click to exit</h2>
             <section>
                 <h1>1. What is Code-Switching?</h1>
                 <p>Poplack (2001) defines code-switching as “the mixing, by bilinguals (or multilinguals), of two or more languages in discourse, often with no change of interlocutor or topic”. The most frequently used types of code-switching are as follows (Çetinoğlu et al., 2016; van der Westhuizen and Niesler, 2011):</p>
@@ -103,6 +104,18 @@ li{
     border-radius: 8px;
     padding: 30px;
 }
+
+.click-info {
+    position: absolute;
+    top: -10px;
+    color: #fff;
+    text-shadow:
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+}
+
 
 .example-container{
     border: black 1px solid;
