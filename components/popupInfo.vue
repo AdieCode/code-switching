@@ -160,7 +160,7 @@ li{
 .example-container{
     border: black 1px solid;
     padding: 10px;
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: start;
