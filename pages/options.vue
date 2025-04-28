@@ -1,20 +1,25 @@
 <template>
     <div class="main-container">
 
+        <popupInfo :isVisible="infoPopUpIsVisible" :toggleFunction="toggleInfoPopup"/>
+        <PopupDefenition :isVisible="defenitionPopUpIsVisible" :toggleFunction="toggleDefenitionPopup"/>
+
         <!-- learn about code-switching -->
-        <info :text="'How to review/add sentences'"/>
+        <div class="defenition-button">
+            <CustomButton :text="'What is code-switching'" mobile-text="Defenition" :onClickFunction="toggleDefenitionPopup"/>
+        </div>
+        
+        <info :text="'Guide on how to review/add sentences'" :onClickFunction="toggleInfoPopup"/>
 
         <!-- the options provided to the user -->
         <h2>Please select an option</h2>
         <div class="options">
             <div class="option" @click="toReview">
-                <h2>Review</h2>
-                <p>Review code-switched sentences shared by other users.</p>
+                <h2>Review existing code-switched sentences</h2>
                 <div class="animated-background2"></div>
             </div>
             <div class="option" @click="toWrite">
-                <h2>Add</h2>
-                <p>Provide an example of a sentence that demonstrates <br>code-switching as you understand it</p>
+                <h2>Add your own code-switched sentences</h2>
                 <div class="animated-background1"></div>
             </div>
         </div>
@@ -23,8 +28,13 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { CustomButton } from '#components';
 import { useRouter } from 'vue-router';
-const router = useRouter()
+const router = useRouter();
+
+const infoPopUpIsVisible = ref(false);
+const defenitionPopUpIsVisible = ref(false);
 
 function toWrite() {
     router.push("/write");
@@ -33,6 +43,14 @@ function toWrite() {
 function toReview() {
     router.push("/review");
 }
+
+function toggleInfoPopup() {
+    infoPopUpIsVisible.value = !infoPopUpIsVisible.value
+}
+function toggleDefenitionPopup() {
+    defenitionPopUpIsVisible.value = !defenitionPopUpIsVisible.value
+}
+
 
 </script>
 
@@ -75,8 +93,15 @@ body{
     flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
+.defenition-button{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+}
 
 .option{
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -90,7 +115,7 @@ body{
 
 .option h2{
     font-size: 32px !important;
-    font-weight: 400 !important;
+    font-weight: 200 !important;
     text-align: center !important;
     margin-bottom: 10px;
     z-index: 1;
@@ -171,6 +196,10 @@ body{
         font-size: 16px;
         font-weight: 300;
     }
+    .defenition-button{
+    top: 10px;
+    left: 10px;
+}
 
 
 }

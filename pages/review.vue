@@ -4,10 +4,10 @@
          <popupEditBox :isVisible="popUpVisible" :onSubmit="sendFeedback" :exit="togglePopup"/>
 
         <!-- learn about code-switching -->
-        <info :text="'How to review/add sentences'"/>
+        <info :text="'Guide on how to review/add sentences'"/>
         
         <!-- <flash text="Let's add some sentences, shall we?" direction="left"/> -->
-        <flash text="Let's review some sentences, shall we?"/>
+        <!-- <flash text="Let's review some sentences, shall we?"/> -->
 
         <!-- back to index page -->
         <back link="options"/>
@@ -54,7 +54,7 @@
         <div v-if="feedback" class="review-container">
 
             <!-- add sentences -->
-            <p>Why is this not a valid code-switched sentence?</p>
+            <p>Why is this not an acceptable code-switched sentence?</p>
 
             <h3 v-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
 

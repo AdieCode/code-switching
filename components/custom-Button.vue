@@ -9,16 +9,16 @@
 import { useRouter } from 'vue-router';
 import { ref, onMounted, onUnmounted } from 'vue';
 
-
 const props = defineProps({
     text: { type: String, default: 'no name' },
+    mobileText: { type: String, default: 'no mobile Text provided' },
     onClickFunction: { type: Function, default: () => {} }
 });
 
 const displayText = ref(props.text);
 
 function updateTextBasedOnScreenSize() {
-    displayText.value = window.innerWidth <= 880 ? 'How to' : props.text;
+    displayText.value = window.innerWidth <= 880 ? props.mobileText : props.text;
 }
 
 onMounted(() => {
@@ -39,9 +39,6 @@ onUnmounted(() => {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 20px;
-    right: 20px;
     border: 1px solid #000;
     cursor: pointer;
 }

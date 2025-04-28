@@ -2,9 +2,9 @@
     <div class="write-container">
         
         <!-- learn about code-switching -->
-        <info :text="'How to review/add sentences'"/>
+        <info :text="'Guide on how to review/add sentences'"/>
 
-        <flash text="Let's write some sentences, shall we?"/>
+        <!-- <flash text="Let's write some sentences, shall we?"/> -->
         <added v-if="add"/>
 
         <!-- back to index page -->
@@ -16,7 +16,13 @@
         <form action="" @submit.prevent="addSentence">
             <div class="edit-label">Enter sentence</div>
             <input type="text"  placeholder="Enter sentence" v-model="sentence" required minlength="6">
-            <button :disabled="loading">Submit</button>
+            <select v-model="selectedTopic" required class="age-dropdown">
+                <option disabled value="">Please select a topic</option>
+                <option v-for="topic in topicOptions" :key="topic" :value="topic">{{ topic }}</option>
+            </select>
+            <div>
+                <button :disabled="loading">Submit</button>
+            </div>
         </form>
     </div>
 </template>
@@ -29,6 +35,31 @@ const sentenceManager = useSentenceManager();
 const add = ref(false);
 const sentence = ref('');
 const loading = ref(false); // Add loading state
+
+const selectedTopic = ref("")
+
+const topicOptions = ref([
+    'Weather',
+    'Current Events',
+    'Sports',
+    'Food and Cooking',
+    'Entertainment',
+    'Music',
+    'Work or Career',
+    'Hobbies and Interests',
+    'Travel',
+    'Family and Relationships',
+    'Technology',
+    'Health and Wellness',
+    'Education',
+    'Pets and Animals',
+    'Finance and Economy',
+    'Fashion and Style',
+    'Books and Literature',
+    'Holiday Plans',
+    'Personal Achievements',
+    'Cultural Topics'
+])
 
 async function addSentence (){
     if (loading.value) return; // Prevent multiple submissions
@@ -48,6 +79,10 @@ async function addSentence (){
             loading.value = false;
         }, 1300);
     }
+}
+
+function setAgeRange(value){
+
 }
 </script>
 
@@ -159,6 +194,13 @@ button::before {
 
 }
 
+.age-dropdown {
+    font-size: 24px;
+    padding: 8px;
+    margin-bottom: 80px;
+
+}
+
 button:hover::before {
     width: 100%;
     animation: textVisible 0.1s forwards;
@@ -207,6 +249,12 @@ button:disabled {
 
     button::before {
         font-size: 24px;
+    }
+
+    .age-dropdown {
+        min-width: 70%;
+        font-size: 18px;
+
     }
 }
 
