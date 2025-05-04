@@ -136,7 +136,7 @@ body{
     background-color: #000000;
     position: absolute;
     top: 0px;
-    right: 0px;
+    left: 0px;
     transition: 0.2s;
 }
 
@@ -146,7 +146,7 @@ body{
     background-color: #000000;
     position: absolute;
     top: 0px;
-    left: 0px;
+    right: 0px;
     transition: 0.2s;
 }
 

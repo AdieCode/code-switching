@@ -119,20 +119,14 @@ async function handleFormSubmit() {
   await sentenceManager.addCorrections(afrikaansEdited.value, afrikaansIsCorrect.value, englishEdited.value, englishIsCorrect.value);
   await getSentenceRequest();
 
-
-
-
-
-  console.log("Afrikaans Is Correct:", afrikaansIsCorrect.value);
-  console.log("English Is Correct:", englishIsCorrect.value);
-  console.log("Afrikaans Edited:", afrikaansEdited.value);
-  console.log("English Edited:", englishEdited.value);
-  console.log("Error Message:", errorMessage.value);
-  console.log("Loading:", loading.value);
-
   // Placeholder for the function to handle form submission
   console.log("Form submitted");
 }
+
+onMounted(() => {
+  afrikaansEdited.value = sentenceManager.correctionsData.afr.sentence;
+  englishEdited.value = sentenceManager.correctionsData.eng.sentence;
+})
 </script>
 
 <style scoped>
@@ -288,6 +282,51 @@ button:disabled {
     }
     100% {
         color: #fff;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .review-container h2 {
+        font-size: 24px;
+        font-weight: 800;
+    }
+
+    .review-container p {
+        float: inline-end;
+        font-size: 16px;
+    }
+
+    .review-container h3 {
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    .section h1{
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    input[type="text"] {
+        min-width: 80%;
+        font-size: 18px;
+    }
+
+    button {
+        min-width: 150px;
+        max-width: 150px;
+        height: 50px;
+        font-size: 24px;
+    }
+
+    button::before {
+        font-size: 24px;
+    }
+
+    .age-dropdown {
+        min-width: 70%;
+        font-size: 18px;
+
     }
 }
 </style>
