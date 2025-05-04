@@ -21,6 +21,12 @@ sentenceManager.loadPreferences();
 const preferences = sentenceManager.userPreferences;
 
 watch(preferences, (newPreferences) => {
+    // Check if correctionsData has no keys
+    if (!sentenceManager.correctionsData || Object.keys(sentenceManager.correctionsData).length === 0) {
+        router.push('/review');
+        return;
+    }
+
     if (newPreferences.tc && newPreferences.ageRange !== 'none') {
         if (route.path === '/') {
             router.push('/options');

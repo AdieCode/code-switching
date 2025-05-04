@@ -69,7 +69,7 @@ async function addSentence (){
     add.value = true;
 
     try {
-        await sentenceManager.addSentence(sentence.value);
+        await sentenceManager.addSentence(sentence.value, selectedTopic.value);
         setTimeout(() => {
             sentence.value = '';
         }, 600);

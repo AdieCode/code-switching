@@ -145,7 +145,9 @@ const vote = async (option) => {
             feedback.value = true;
         } else {
             await addVoteRequest(option);
-            await getSentenceRequest();
+            await sentenceManager.getCorrectionData(sentenceManager.sentence.id);
+            router.push('/sentence_correction');
+            // await getSentenceRequest();
         }
     } catch (error) {
         console.error('Error voting:', error);
