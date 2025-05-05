@@ -98,6 +98,8 @@ async function addSentence (){
         await sentenceManager.addSentence(sentence.value, afrikaansTranslation.value, englishTranslation.value, selectedTopic.value);
         setTimeout(() => {
             sentence.value = '';
+            afrikaansTranslation.value = '';
+            englishTranslation.value = '';
         }, 600);
     } catch (error) {
         console.error('Error adding sentence:', error);
