@@ -15,11 +15,13 @@
         <h2>Please select an option</h2>
         <div class="options">
             <div class="option" @click="toReview">
-                <h2>Review existing code-switched sentences</h2>
+                <h2>Review</h2>
+                <p>Review existing code-switched sentences</p>
                 <div class="animated-background2"></div>
             </div>
             <div class="option" @click="toWrite">
-                <h2>Add your own code-switched sentences</h2>
+                <h2>Add</h2>
+                <p>Add your own code-switched sentences</p>
                 <div class="animated-background1"></div>
             </div>
         </div>

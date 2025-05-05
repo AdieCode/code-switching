@@ -5,6 +5,10 @@
         <popupInfo :isVisible="infoPopUpIsVisible" :toggleFunction="toggleInfoPopup"/>
         <info :text="'Guide on how to review/add sentences'" :onClickFunction="toggleInfoPopup"/>
 
+        <PopupDefenition :isVisible="defenitionPopUpIsVisible" :toggleFunction="toggleDefenitionPopup"/>
+        <div class="defenition-button">
+            <CustomButton :text="'What is code-switching'" mobile-text="Defenition" :onClickFunction="toggleDefenitionPopup"/>
+        </div>
         <!-- <flash text="Let's write some sentences, shall we?"/> -->
         <added v-if="add"/>
 
@@ -15,8 +19,17 @@
         <h2>Add a sentence</h2>
         <p>Please provide an example of a code-switched sentence as you understand it</p>
         <form action="" @submit.prevent="addSentence">
-            <div class="edit-label">Enter sentence</div>
-            <input type="text"  placeholder="Enter sentence" v-model="sentence" required minlength="6">
+            <div :class="['edit-label', { 'focused': focusedInput === 'sentence' }]">Enter sentence</div>
+            <input type="text" placeholder="Enter sentence" v-model="sentence" required minlength="6" 
+                   @focus="setFocus('sentence')" @blur="clearFocus" />
+
+            <div :class="['edit-label2', { 'focused': focusedInput === 'afrikaans' }]">Afrikaans translation</div>
+            <input type="text" placeholder="Afrikaans translation" v-model="afrikaansTranslation" required minlength="6" 
+                   @focus="setFocus('afrikaans')" @blur="clearFocus" />
+
+            <div :class="['edit-label3', { 'focused': focusedInput === 'english' }]">English translation</div>
+            <input type="text" placeholder="English translation" v-model="englishTranslation" required minlength="6" 
+                   @focus="setFocus('english')" @blur="clearFocus" />
             <select v-model="selectedTopic" required class="age-dropdown">
                 <option disabled value="">Please select a topic</option>
                 <option v-for="topic in topicOptions" :key="topic" :value="topic">{{ topic }}</option>
@@ -35,8 +48,11 @@ import { useSentenceManager } from '../store/sentenceManager';
 const sentenceManager = useSentenceManager();
 const add = ref(false);
 const sentence = ref('');
+const afrikaansTranslation = ref('');
+const englishTranslation = ref('');
 const loading = ref(false); // Add loading state
 const infoPopUpIsVisible = ref(false);
+const defenitionPopUpIsVisible = ref(false);
 
 const selectedTopic = ref("")
 
@@ -63,13 +79,23 @@ const topicOptions = ref([
     'Cultural Topics'
 ])
 
+const focusedInput = ref(null); // Track the currently focused input
+
+function setFocus(inputName) {
+    focusedInput.value = inputName;
+}
+
+function clearFocus() {
+    focusedInput.value = null;
+}
+
 async function addSentence (){
     if (loading.value) return; // Prevent multiple submissions
     loading.value = true;
     add.value = true;
 
     try {
-        await sentenceManager.addSentence(sentence.value, selectedTopic.value);
+        await sentenceManager.addSentence(sentence.value, afrikaansTranslation.value, englishTranslation.value, selectedTopic.value);
         setTimeout(() => {
             sentence.value = '';
         }, 600);
@@ -83,9 +109,15 @@ async function addSentence (){
     }
 }
 
-    function toggleInfoPopup() {
-        infoPopUpIsVisible.value = !infoPopUpIsVisible.value
-    }
+function toggleInfoPopup() {
+    infoPopUpIsVisible.value = !infoPopUpIsVisible.value
+}
+
+    
+function toggleDefenitionPopup() {
+    defenitionPopUpIsVisible.value = !defenitionPopUpIsVisible.value
+}
+
 
 </script>
 
@@ -109,12 +141,14 @@ body{
 
 
 .write-container{
+    margin-top: 160px;
     width: 100%;
-    height: 100dvh;
+    /* height: 100dvh; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* position: relative; */
 }
 .write-container h2{
     font-size: 36px;
@@ -147,11 +181,11 @@ input{
     margin-bottom: 80px;
 }
 
-form:focus-within .edit-label{
+/* form:focus-within .edit-label{
     background-color: #000;
     color: #fff;
 }
- 
+  */
 .edit-label{
     position: absolute;
     top: -14px;
@@ -161,6 +195,35 @@ form:focus-within .edit-label{
     padding: 0px 10px;
     transition: 0.2s;
     pointer-events: none;
+}
+
+.edit-label2{
+    position: absolute;
+    top: 120px;
+    left: 10px;
+    font-size: 16px;
+    background-color: #fff;
+    padding: 0px 10px;
+    transition: 0.2s;
+    pointer-events: none;
+}
+
+.edit-label3{
+    position: absolute;
+    top: 250px;
+    left: 10px;
+    font-size: 16px;
+    background-color: #fff;
+    padding: 0px 10px;
+    transition: 0.2s;
+    pointer-events: none;
+}
+
+.defenition-button{
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    z-index: 1;
 }
 
 button{
@@ -228,6 +291,11 @@ button:disabled {
     color: #a0a0a0; /* Add gray text color */
 }
 
+.focused {
+    background-color: #000;
+    color: #fff;
+}
+
 @media (max-width: 768px) {
     .write-container h2 {
         font-size: 24px;
@@ -237,6 +305,14 @@ button:disabled {
     .write-container p {
         font-size: 16px;
     }
+
+    .defenition-button{
+        position: absolute;
+        top: 70px;
+        right: 10px;
+        z-index: 1;
+    }
+
 
     input {
         min-width: 80%;

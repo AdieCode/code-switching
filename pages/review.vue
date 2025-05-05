@@ -7,6 +7,10 @@
         <popupInfo :isVisible="infoPopUpIsVisible" :toggleFunction="toggleInfoPopup"/>
         <info :text="'Guide on how to review/add sentences'" :onClickFunction="toggleInfoPopup"/>
         
+        <PopupDefenition :isVisible="defenitionPopUpIsVisible" :toggleFunction="toggleDefenitionPopup"/>
+        <div class="defenition-button">
+            <CustomButton :text="'What is code-switching'" mobile-text="Defenition" :onClickFunction="toggleDefenitionPopup"/>
+        </div>
         <!-- <flash text="Let's add some sentences, shall we?" direction="left"/> -->
         <!-- <flash text="Let's review some sentences, shall we?"/> -->
 
@@ -18,7 +22,7 @@
 
             <!-- add sentences -->
             <h2>Review a sentence</h2>
-            <p>Would you classify the following sentence as a valid code-switched sentence?</p>
+            <p>Would you classify the following sentence as an acceptable code-switched sentence?</p>
 
             <h3 v-if="sentenceManager.sentence.text === 'No more sentences to review'">{{ sentenceManager.sentence.text }}</h3>
             <h3 v-else-if="sentenceManager.sentence.text">"{{ sentenceManager.sentence.text }}"</h3>
@@ -97,6 +101,7 @@ const feedbackOptions = [
 ];
 
 const infoPopUpIsVisible = ref(false);
+const defenitionPopUpIsVisible = ref(false);
 function toggleInfoPopup() {
     infoPopUpIsVisible.value = !infoPopUpIsVisible.value
 }
@@ -165,6 +170,11 @@ function togglePopup() {
     popUpVisible.value = !popUpVisible.value;
 }
 
+function toggleDefenitionPopup() {
+    defenitionPopUpIsVisible.value = !defenitionPopUpIsVisible.value
+}
+
+
 async function sendFeedback(feedbackText) {
     try {
         await sentenceManager.feedback(feedbackText);
@@ -208,6 +218,7 @@ onMounted(() => {
 }
 
 .review-container h2{
+    margin-top: 40px;
     font-size: 36px;
     font-weight: 600;
     margin-bottom: 10px;
@@ -227,6 +238,13 @@ onMounted(() => {
     font-weight: 300;
     margin-top: 10px;
     text-align: center;
+}
+
+.defenition-button{
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    z-index: 1;
 }
 
 .options{
@@ -393,6 +411,13 @@ onMounted(() => {
         font-size: 16px;
         font-weight: 300;
         text-align: center;
+    }
+
+    .defenition-button{
+        position: absolute;
+        top: 70px;
+        right: 10px;
+        z-index: 1;
     }
 
     .options{
