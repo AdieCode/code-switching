@@ -17,10 +17,14 @@
 
         <!-- add sentences -->
         <h2>Add a sentence</h2>
-        <p>Please provide an example of a code-switched sentence as you understand it</p>
+        <p>Please provide an example of a code-switched sentence as you understand it and then provide its translation</p>
         <form action="" @submit.prevent="addSentence">
-            <div :class="['edit-label', { 'focused': focusedInput === 'sentence' }]">Enter sentence</div>
-            <input type="text" placeholder="Enter sentence" v-model="sentence" required minlength="6" 
+            <select v-model="selectedTopic" required class="age-dropdown">
+                <option disabled value="">Please select a topic</option>
+                <option v-for="topic in topicOptions" :key="topic" :value="topic">{{ topic }}</option>
+            </select>
+            <div :class="['edit-label', { 'focused': focusedInput === 'sentence' }]">Code switched sentence</div>
+            <input type="text" placeholder="Code switched sentence" v-model="sentence" required minlength="6" 
                    @focus="setFocus('sentence')" @blur="clearFocus" />
 
             <div :class="['edit-label2', { 'focused': focusedInput === 'afrikaans' }]">Afrikaans translation</div>
@@ -30,10 +34,6 @@
             <div :class="['edit-label3', { 'focused': focusedInput === 'english' }]">English translation</div>
             <input type="text" placeholder="English translation" v-model="englishTranslation" required minlength="6" 
                    @focus="setFocus('english')" @blur="clearFocus" />
-            <select v-model="selectedTopic" required class="age-dropdown">
-                <option disabled value="">Please select a topic</option>
-                <option v-for="topic in topicOptions" :key="topic" :value="topic">{{ topic }}</option>
-            </select>
             <div>
                 <button :disabled="loading">Submit</button>
             </div>
@@ -190,7 +190,7 @@ input{
   */
 .edit-label{
     position: absolute;
-    top: -14px;
+    top: 112px;
     left: 10px;
     font-size: 16px;
     background-color: #fff;
@@ -201,7 +201,7 @@ input{
 
 .edit-label2{
     position: absolute;
-    top: 120px;
+    top: 245px;
     left: 10px;
     font-size: 16px;
     background-color: #fff;
@@ -212,7 +212,7 @@ input{
 
 .edit-label3{
     position: absolute;
-    top: 250px;
+    top: 377px;
     left: 10px;
     font-size: 16px;
     background-color: #fff;
@@ -336,6 +336,18 @@ button:disabled {
         min-width: 70%;
         font-size: 18px;
 
+    }
+
+    .edit-label{
+        top: 106px;
+    }
+
+    .edit-label2{
+        top: 238px;
+    }
+
+    .edit-label3{
+        top: 370px;
     }
 }
 

@@ -3,15 +3,19 @@
   <popupInfo :isVisible="infoPopUpIsVisible" :toggleFunction="toggleInfoPopup" />
   <info :text="'Guide on how to review/add sentences'" :onClickFunction="toggleInfoPopup" />
 
+  <PopupDefenition :isVisible="defenitionPopUpIsVisible" :toggleFunction="toggleDefenitionPopup"/>
+  <div class="defenition-button">
+      <CustomButton :text="'What is code-switching'" mobile-text="Defenition" :onClickFunction="toggleDefenitionPopup"/>
+  </div>
+
   <!-- Back to index page -->
   <back link="options" />
 
   <!-- Form -->
   <form class="review-container" @submit.prevent="handleFormSubmit">
-    <h2>Correct Sentence</h2>
+    <h2>Translations</h2>
     <p>
-      Please review the following and change them<br />
-      if the translation does not seem right.
+      Review the translations for this code-switched sentence. if it's incorrect please provide a correct translation
     </p>
 
     <!-- Original Sentence -->
@@ -23,10 +27,10 @@
       <h1>"{{ sentenceManager.correctionsData.afr.sentence }}"</h1>
       <div>
         <label>
-          <input type="radio" value="yes" v-model="afrikaansIsCorrect" required /> yes
+          <input type="radio" value="yes" v-model="afrikaansIsCorrect" required /> Yes
         </label>
         <label>
-          <input type="radio" value="no" v-model="afrikaansIsCorrect" required /> no
+          <input type="radio" value="no" v-model="afrikaansIsCorrect" required /> No
         </label>
       </div>
       <input
@@ -45,10 +49,10 @@
       <h1>"{{ sentenceManager.correctionsData.eng.sentence }}"</h1>
       <div>
         <label>
-          <input type="radio" value="yes" v-model="englishIsCorrect" required /> yes
+          <input type="radio" value="yes" v-model="englishIsCorrect" required /> Yes
         </label>
         <label>
-          <input type="radio" value="no" v-model="englishIsCorrect" required /> no
+          <input type="radio" value="no" v-model="englishIsCorrect" required /> No
         </label>
       </div>
       <input
@@ -78,8 +82,13 @@ const router = useRouter();
 const sentenceManager = useSentenceManager();
 
 const infoPopUpIsVisible = ref(false);
+const defenitionPopUpIsVisible = ref(false);
 function toggleInfoPopup() {
   infoPopUpIsVisible.value = !infoPopUpIsVisible.value;
+}
+
+function toggleDefenitionPopup() {
+    defenitionPopUpIsVisible.value = !defenitionPopUpIsVisible.value
 }
 
 const originalSentence = ref("Sentence comes here");
@@ -139,7 +148,7 @@ onMounted(() => {
 }
 
 .review-container {
-  margin-top: 100px;
+  margin-top: 130px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -171,7 +180,7 @@ onMounted(() => {
 }
 
 .section {
-  margin: 80px 0;
+  margin: 50px 0;
   width: 100%;
   max-width: 500px;
   display: flex;
@@ -266,6 +275,13 @@ button:disabled {
     color: #a0a0a0; /* Add gray text color */
 }
 
+.defenition-button{
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    z-index: 1;
+}
+
 .error-message {
   margin-top: 10px;
   color: var(--highlight-red);
@@ -305,6 +321,13 @@ button:disabled {
     .section h1{
       font-size: 20px;
       font-weight: 600;
+    }
+
+    .defenition-button{
+        position: absolute;
+        top: 70px;
+        right: 10px;
+        z-index: 1;
     }
 
     input[type="text"] {
