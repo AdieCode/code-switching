@@ -4,9 +4,9 @@
   <info :text="'Guide on how to review/add sentences'" :onClickFunction="toggleInfoPopup" />
 
   <PopupDefenition :isVisible="defenitionPopUpIsVisible" :toggleFunction="toggleDefenitionPopup"/>
-  <div class="defenition-button">
+  <!-- <div class="defenition-button">
       <CustomButton :text="'What is code-switching'" mobile-text="Defenition" :onClickFunction="toggleDefenitionPopup"/>
-  </div>
+  </div> -->
 
   <!-- Back to index page -->
   <back link="options" />
@@ -15,7 +15,7 @@
   <form class="review-container" @submit.prevent="handleFormSubmit">
     <h2>Translations</h2>
     <p>
-      Review the translations for this code-switched sentence. if it's incorrect please provide a correct translation
+      Review the translations for this code-switched sentence. If it's incorrect, please provide a correct translation
     </p>
 
     <!-- Original Sentence -->
@@ -198,6 +198,7 @@ onMounted(() => {
 .section label {
   font-size: 18px;
   font-weight: 400;
+  text-decoration: underline;
   text-align: center;
 }
 
@@ -209,6 +210,7 @@ onMounted(() => {
 
 .section div label {
   font-weight: 300;
+  text-decoration: none;
   font-size: 24px;
 }
 

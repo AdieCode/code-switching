@@ -6,9 +6,9 @@
         <info :text="'Guide on how to review/add sentences'" :onClickFunction="toggleInfoPopup"/>
 
         <PopupDefenition :isVisible="defenitionPopUpIsVisible" :toggleFunction="toggleDefenitionPopup"/>
-        <div class="defenition-button">
+        <!-- <div class="defenition-button">
             <CustomButton :text="'What is code-switching'" mobile-text="Defenition" :onClickFunction="toggleDefenitionPopup"/>
-        </div>
+        </div> -->
         <!-- <flash text="Let's write some sentences, shall we?"/> -->
         <added v-if="add"/>
 
@@ -23,8 +23,8 @@
                 <option disabled value="">Please select a topic</option>
                 <option v-for="topic in topicOptions" :key="topic" :value="topic">{{ topic }}</option>
             </select>
-            <div :class="['edit-label', { 'focused': focusedInput === 'sentence' }]">Code switched sentence</div>
-            <input type="text" placeholder="Code switched sentence" v-model="sentence" required minlength="6" 
+            <div :class="['edit-label', { 'focused': focusedInput === 'sentence' }]">Code-switched sentence</div>
+            <input type="text" placeholder="Code-switched sentence" v-model="sentence" required minlength="6" 
                    @focus="setFocus('sentence')" @blur="clearFocus" />
 
             <div :class="['edit-label2', { 'focused': focusedInput === 'afrikaans' }]">Afrikaans translation</div>

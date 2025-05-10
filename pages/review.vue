@@ -8,9 +8,9 @@
         <info :text="'Guide on how to review/add sentences'" :onClickFunction="toggleInfoPopup"/>
         
         <PopupDefenition :isVisible="defenitionPopUpIsVisible" :toggleFunction="toggleDefenitionPopup"/>
-        <div class="defenition-button">
+        <!-- <div class="defenition-button">
             <CustomButton :text="'What is code-switching'" mobile-text="Defenition" :onClickFunction="toggleDefenitionPopup"/>
-        </div>
+        </div> -->
         <!-- <flash text="Let's add some sentences, shall we?" direction="left"/> -->
         <!-- <flash text="Let's review some sentences, shall we?"/> -->
 
