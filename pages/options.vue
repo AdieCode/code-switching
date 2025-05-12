@@ -5,9 +5,9 @@
         <PopupDefenition :isVisible="defenitionPopUpIsVisible" :toggleFunction="toggleDefenitionPopup"/>
 
         <!-- learn about code-switching -->
-        <div class="defenition-button">
+        <!-- <div class="defenition-button">
             <CustomButton :text="'What is code-switching'" mobile-text="Defenition" :onClickFunction="toggleDefenitionPopup"/>
-        </div>
+        </div> -->
         
         <info :text="'Guide on how to review/add sentences'" :onClickFunction="toggleInfoPopup"/>
 
