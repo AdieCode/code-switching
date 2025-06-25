@@ -58,10 +58,11 @@ export const useSentenceManager = defineStore('auth', {
       localStorage.setItem('votedSentenceIds', JSON.stringify(this.votedSentenceIds)); // Save voted IDs to local storage
     },
 
-    async addSentence(sentence, afrTranslation, engTranslation, topic) {
+    async addSentence(sentence, incorrectSentence, afrTranslation, engTranslation, topic) {
       try {
         const response = await axios.post(`${this.baseURL}/sentences/add`, {
           sentence: sentence,
+          incorrectSentence: incorrectSentence,
           afrTranslation: afrTranslation,
           engTranslation: engTranslation,
           topic: topic

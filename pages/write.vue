@@ -27,11 +27,15 @@
             <input type="text" placeholder="Code-switched sentence" v-model="sentence" required minlength="6" 
                    @focus="setFocus('sentence')" @blur="clearFocus" />
 
-            <div :class="['edit-label2', { 'focused': focusedInput === 'afrikaans' }]">Afrikaans translation</div>
+            <div :class="['edit-label2', { 'focused': focusedInput === 'incorrect_sentence' }]">Incorrect sentence</div>
+            <input type="text" placeholder="Incorrect sentence" v-model="incorrectSentence" required minlength="6" 
+                   @focus="setFocus('incorrect_sentence')" @blur="clearFocus" />
+
+            <div :class="['edit-label3', { 'focused': focusedInput === 'afrikaans' }]">Afrikaans translation</div>
             <input type="text" placeholder="Afrikaans translation" v-model="afrikaansTranslation" required minlength="6" 
                    @focus="setFocus('afrikaans')" @blur="clearFocus" />
 
-            <div :class="['edit-label3', { 'focused': focusedInput === 'english' }]">English translation</div>
+            <div :class="['edit-label4', { 'focused': focusedInput === 'english' }]">English translation</div>
             <input type="text" placeholder="English translation" v-model="englishTranslation" required minlength="6" 
                    @focus="setFocus('english')" @blur="clearFocus" />
             <div>
@@ -48,6 +52,7 @@ import { useSentenceManager } from '../store/sentenceManager';
 const sentenceManager = useSentenceManager();
 const add = ref(false);
 const sentence = ref('');
+const incorrectSentence = ref('');
 const afrikaansTranslation = ref('');
 const englishTranslation = ref('');
 const loading = ref(false); // Add loading state
@@ -95,9 +100,10 @@ async function addSentence (){
     add.value = true;
 
     try {
-        await sentenceManager.addSentence(sentence.value, afrikaansTranslation.value, englishTranslation.value, selectedTopic.value);
+        await sentenceManager.addSentence(sentence.value, incorrectSentence.value, afrikaansTranslation.value, englishTranslation.value, selectedTopic.value);
         setTimeout(() => {
             sentence.value = '';
+            incorrectSentence.value = '';
             afrikaansTranslation.value = '';
             englishTranslation.value = '';
         }, 600);
@@ -150,6 +156,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 100px;
     /* position: relative; */
 }
 .write-container h2{
@@ -220,6 +227,18 @@ input{
     transition: 0.2s;
     pointer-events: none;
 }
+
+.edit-label4{
+    position: absolute;
+    top: 510px;
+    left: 10px;
+    font-size: 16px;
+    background-color: #fff;
+    padding: 0px 10px;
+    transition: 0.2s;
+    pointer-events: none;
+}
+
 
 .defenition-button{
     position: absolute;
@@ -348,6 +367,10 @@ button:disabled {
 
     .edit-label3{
         top: 370px;
+    }
+
+    .edit-label4{
+        top: 503px;
     }
 }
 
