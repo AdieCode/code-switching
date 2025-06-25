@@ -10,7 +10,7 @@
             <CustomButton :text="'What is code-switching'" mobile-text="Defenition" :onClickFunction="toggleDefenitionPopup"/>
         </div> -->
         <!-- <flash text="Let's write some sentences, shall we?"/> -->
-        <added v-if="add"/>
+        <!-- <added v-if="add"/> -->
 
         <!-- back to index page -->
         <back link="options"/>
