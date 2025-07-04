@@ -27,8 +27,8 @@
             <input type="text" placeholder="Code-switched sentence" v-model="sentence" required minlength="6" 
                    @focus="setFocus('sentence')" @blur="clearFocus" />
 
-            <div :class="['edit-label2', { 'focused': focusedInput === 'incorrect_sentence' }]">Incorrect sentence</div>
-            <input type="text" placeholder="Incorrect sentence" v-model="incorrectSentence" required minlength="6" 
+            <div :class="['edit-label2', { 'focused': focusedInput === 'incorrect_sentence' }]">Incorrect code-switched sentence</div>
+            <input type="text" placeholder="Incorrect code-switched sentence" v-model="incorrectSentence" required minlength="6" 
                    @focus="setFocus('incorrect_sentence')" @blur="clearFocus" />
 
             <div :class="['edit-label3', { 'focused': focusedInput === 'afrikaans' }]">Afrikaans translation</div>
@@ -334,9 +334,13 @@ button:disabled {
         z-index: 1;
     }
 
+    form {
+        width: 90%;
+    }
+
 
     input {
-        min-width: 80%;
+        min-width: 100%;
         font-size: 18px;
     }
 
